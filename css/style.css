@@ -9,7 +9,7 @@
     margin-top: 15px;
     object-fit: cover;
     object-position: center;
-    height: 70vh;
+    /* height: 70vh; */
     overflow: hidden;
 }
 
