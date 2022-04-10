@@ -1,11 +1,12 @@
-#iniciarSesion{
+#iniciarSesion {
     margin-right: 15px;
 }
-*{
-    font-family: 'Fira Sans', sans-serif;
+
+* {
+    font-family: "Fira Sans", sans-serif;
 }
 
-#carouselExampleCaptions .carousel-item img{
+#carouselExampleCaptions .carousel-item img {
     margin-top: 15px;
     object-fit: cover;
     object-position: center;
@@ -13,11 +14,12 @@
     overflow: hidden;
 }
 
-
-a{
+a {
     text-decoration: none !important;
 }
 
-footer{
+footer {
     margin-top: 25px;
 }
+
+/* Card Horizontal */
