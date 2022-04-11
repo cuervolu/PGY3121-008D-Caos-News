@@ -1,0 +1,13 @@
+.scroll {
+    display: relative;
+    border: 0px solid red;
+    padding: 5px;
+    margin-top: 5px;
+    width: 100%;
+    height: 70vh;
+    overflow-y: scroll;
+}
+
+a {
+    text-decoration: none !important;
+}
