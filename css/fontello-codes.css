@@ -4,9 +4,11 @@
 .icon-print:before { content: '\e802'; } /* '' */
 .icon-mail:before { content: '\e803'; } /* '' */
 .icon-up-dir:before { content: '\e804'; } /* '' */
+.icon-user:before { content: '\e805'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */
 .icon-youtube-play:before { content: '\f16a'; } /* '' */
 .icon-instagram:before { content: '\f16d'; } /* '' */
+.icon-google:before { content: '\f1a0'; } /* '' */
 .icon-codiepie:before { content: '\f284'; } /* '' */
 .icon-address-book:before { content: '\f2b9'; } /* '' */
 .icon-twitter:before { content: '\f309'; } /* '' */

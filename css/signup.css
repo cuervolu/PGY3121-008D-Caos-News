@@ -21,20 +21,10 @@ a {
 footer {
     /* margin-top: 25px; */
 }
-
-/* Sign in */
-.login {
-    min-height: 100vh;
-  }
-  
-  .bg-image {
-    background-image: url('../img/sign\ in.jpg');
+.bg-image {
+    background-image: url('../img/signup.jpg');
     background-size: cover;
     background-position: center;
-  }
-  
-  .login-heading {
-    font-weight: 300;
   }
   
   .btn-login {
@@ -42,5 +32,13 @@ footer {
     letter-spacing: 0.05rem;
     padding: 0.75rem 1rem;
   }
-
- 
+  
+  .btn-google {
+    color: white !important;
+    background-color: #ea4335 !important;
+  } 
+  
+  .btn-facebook {
+    color: white !important;
+    background-color: #3b5998 !important;
+  }
