@@ -37,7 +37,6 @@ ul{
 }
 
 .bg-image{
-    /* background-image: url('../img/putin.jpg'); */
     background-size: cover;
     background-position: center;
     width: 100%;
