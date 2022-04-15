@@ -1,0 +1,20 @@
+#iniciarSesion {
+    margin-right: 15px;
+}
+
+* {
+    font-family: "Fira Sans", sans-serif;
+}
+
+#carouselExampleCaptions .carousel-item img {
+    margin-top: 15px;
+    object-fit: cover;
+    object-position: center;
+    /* height: 70vh; */
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none !important;
+}
+
