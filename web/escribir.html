@@ -80,46 +80,71 @@
 
     <!-- Contenido -->
     <div class="container border border-bottom-0">
-        <div class="top p-4">
-            <h1 class="text-center text-danger">Escritura de Artículo</h1>
-            <form action="post" style="margin: 5%;">
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1"></label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="12"
-                        placeholder="Ingrese su texto..."></textarea>
+        <form action="post">
+            <div class="top p-4">
+                <h1 class="text-center text-danger">Escritura de Artículo</h1>
+                <form action="post" style="margin: 5%;">
+            </div>
+            <div class="form-group">
+                <div class="mb-1">
+                    <label for="exampleFormControlInput1" class="form-label">Título</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
                 </div>
-                <div class="input-group mb-3 py-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">#</span>
+                <label for="exampleFormControlTextarea1"></label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="12"
+                    placeholder="Ingrese su texto..."></textarea>
+            </div>
+            <div class="input-group mb-3 py-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">#</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Etiquetas" aria-label="Etiquetas"
+                    aria-describedby="basic-addon1">
+            </div>
+            <!-- Selectores -->
+            <div class="row justify-content-end" style="margin-bottom: 40px;">
+                <div class="col-sm-6 col-md-5 col-lg-2">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                            Categoría
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Mundo</a>
+                            <a class="dropdown-item" href="#">Política</a>
+                            <a class="dropdown-item" href="#">Nacional</a>
+                            <a class="dropdown-item" href="#">Deportes</a>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" placeholder="Etiquetas" aria-label="Etiquetas"
-                        aria-describedby="basic-addon1">
                 </div>
-                <div class="row justify-content-end">
+                <div class="row justify-content-end py-3">
                     <div class="col-sm-6 col-md-5 col-lg-2">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
-                                Categoría
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Mundo</a>
-                                <a class="dropdown-item" href="#">Política</a>
-                                <a class="dropdown-item" href="#">Nacional</a>
-                                <a class="dropdown-item" href="#">Deportes</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row justify-content-end py-3">
-                        <div class="col-sm-6 col-md-5 col-lg-2">
-                            <button type="submit" class="btn btn-danger">Subir</button>
-                        </div>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">Subir</button>
                     </div>
                 </div>
-                
-            </form>
+            </div>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tu artículo esta en proceso de revisión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tu artículo sera revisado por uno de nuestros administradores y se te hará llegar una
+                        notificación cuando este proceso este terminado </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="escribir.html"><button type="button" class="btn btn-danger">Aceptar</button></a>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- Fin modal -->
     <!-- Footer -->
     <footer class="text-center text-lg-start text-dark bg-danger mt-auto">
         <!--Social media -->
