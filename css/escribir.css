@@ -18,3 +18,11 @@ a {
     text-decoration: none !important;
 }
 
+.titulo-web{
+    font-weight: 900;
+    text-shadow:  2px 2px 2px #bdb8b885;
+    color: rgb(39, 39, 39);
+    background: #eb4555;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
