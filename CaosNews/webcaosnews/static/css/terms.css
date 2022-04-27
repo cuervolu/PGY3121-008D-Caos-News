@@ -1,3 +1,11 @@
+#iniciarSesion {
+    margin-right: 15px;
+}
+
+body{
+    font-family: "Fira Sans", sans-serif !important;
+}
+
 .scroll {
     display: relative;
     border: 0px solid red;
@@ -10,12 +18,4 @@
 
 a {
     text-decoration: none !important;
-}
-
-#iniciarSesion {
-    margin-right: 15px;
-}
-
-body{
-    font-family: "Fira Sans", sans-serif;
 }
