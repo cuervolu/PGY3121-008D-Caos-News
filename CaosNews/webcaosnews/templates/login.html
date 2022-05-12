@@ -9,6 +9,7 @@
 {% block contenido %}
     <!-- Formulario -->
     <div class="container-fluid ps-md-0">
+        <form action="" class="needs-validation" novalidate>
         <div class="row g-0">
             <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
             <div class="col-md-8 col-lg-6">
@@ -21,13 +22,22 @@
                                 <form>
                                     <div class="form-floating mb-3">
                                         <input type="email" class="form-control" id="floatingInput"
-                                            placeholder="name@ejemplo.com">
+                                            placeholder="name@caosnews.cl" required>
                                         <label for="floatingInput">Email</label>
+                                        <div class="valid-feedback">
+                                            ¡Así se hace!
+                                          </div>
+                                          <div class="invalid-feedback">
+                                            Por favor, ingrese un email valido.
+                                          </div>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input type="password" class="form-control" id="floatingPassword"
-                                            placeholder="Password">
+                                            placeholder="Password"required>
                                         <label for="floatingPassword">Contraseña</label>
+                                          <div class="invalid-feedback">
+                                            Contraseña incorrecta.
+                                          </div>
                                     </div>
 
                                     <div class="form-check mb-3">
@@ -56,5 +66,6 @@
                 </div>
             </div>
         </div>
+    </form>
     </div>
   {% endblock contenido %}

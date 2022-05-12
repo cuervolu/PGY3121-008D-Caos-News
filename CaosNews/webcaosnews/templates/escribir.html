@@ -1,39 +1,48 @@
 {% extends "base.html" %}
 {% load static %}
-    {% block titulo %}
-    Formulario de Publicación de Noticias - Caos News
-    {% endblock titulo %}
-    {% block css %}
-    <link rel="stylesheet" href="{% static 'css/escribir.css' %}">
-    {% endblock css%}
-    {% block script %}
-        <!-- Tiny MC -->
-        <script src="https://cdn.tiny.cloud/1/8l8m0j6ztkpaf38bwic7ipvi8ioyez7mb801f53jk8ik7ygw/tinymce/6/tinymce.min.js"
-            referrerpolicy="origin"></script> 
-    {% endblock script %}
-   
+{% block titulo %}
+Formulario de Publicación de Noticias - Caos News
+{% endblock titulo %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/escribir.css' %}">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock css%}
+{% block script %}
+<!-- Tiny MC -->
+<script src="https://cdn.tiny.cloud/1/8l8m0j6ztkpaf38bwic7ipvi8ioyez7mb801f53jk8ik7ygw/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script>
+{% endblock script %}
 
- {% block contenido %}
-    <!-- Contenido -->
-    <div class="container border border-bottom-0">
-        <form action="post">
-            <div class="top p-4">
-                <h1 class="text-center  titulo-web shadow ">Escritura de Artículo</h1>
-                <form action="post" style="margin: 5%;">
+
+{% block contenido %}
+<!-- Contenido -->
+<div class="container border border-bottom-0">
+    <form action="" class="was-validated">
+        <div class="top p-4">
+            <h1 class="text-center  titulo-web shadow ">Escritura de Artículo</h1>
+            <form action="post" style="margin: 5%;">
+        </div>
+        <!-- Formulario -->
+        <div class="form-group">
+            <div class="mb-1">
+                <label for="exampleFormControlInput1" class="form-label">Título</label>
+                <input type="text" class="form-control" id="validationDefault03" required>
             </div>
-            <!-- Formulario -->
-            <div class="form-group">
-                <div class="mb-1">
-                    <label for="exampleFormControlInput1" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="validationDefault03" required>
-                </div>
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">Imagen de Portada</label>
-                    <input class="form-control" type="file" id="formFile">
-                </div>
-                <!-- Selectores -->
-                <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                    <div class="btn-group">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Imagen de Portada</label>
+                <input class="form-control" type="file" id="formFile" required>
+            </div>
+            <!-- Selectores -->
+            <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
+                <select class="form-select " required aria-label="select example">
+                    <option value="">Categoría</option>
+                    <option value="1">Mundo</option>
+                    <option value="2">Política</option>
+                    <option value="3">Nacional</option>
+                    <option value="3">Deportes</option>
+                </select>
+                <div class="invalid-feedback">Escoge una categoría</div>
+                <!-- <div class="btn-group">
                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
                             Categoría
@@ -44,57 +53,60 @@
                             <a class="dropdown-item" href="{% url 'nac' %}">Nacional</a>
                             <a class="dropdown-item" href="{% url 'dep' %}">Deportes</a>
                         </div>
-                    </div>
-                </div>
-                <!-- TinyMCE -->
-                <div>
-                    <textarea placeholder="Inserte su texto aquí...">
+                    </div> -->
+            </div>
+            <!-- TinyMCE -->
+            <div>
+                <textarea placeholder="Inserte su texto aquí...">
                      </textarea>
-                </div>
-                <!-- Fin TinyMCE -->
             </div>
-            <div class="input-group mb-3 py-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">#</span>
-                </div>
-                <input type="text" class="form-control" placeholder="Etiquetas" aria-label="Etiquetas"
-                    aria-describedby="basic-addon1">
-            </div>
-            <!-- Selectores -->
-            <div class="row justify-content-end" style="margin-bottom: 40px;">
-                <div class="row justify-content-end py-3">
-                    <div class="col-sm-6 col-md-5 col-lg-1">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Subir</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tu artículo esta en proceso de revisión</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Tu artículo sera revisado por uno de nuestros administradores y se te hará llegar una
-                        notificación cuando este proceso este terminado </p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{% url 'escr' %}"><button type="button" class="btn btn-danger">Aceptar</button></a>
+            <!-- Fin TinyMCE -->
+        </div>
+        <div class="mb-3 py-3">
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend">#</span>
+                <input type="text" class="form-control" id="validationCustomTags" aria-describedby="inputGroupPrepend"
+                    required>
+                <div class="invalid-feedback">
+                    Por favor, añada etiquetas.
                 </div>
             </div>
         </div>
+        <!-- Selectores -->
+        <div class="row justify-content-end" style="margin-bottom: 40px;">
+            <div class="row justify-content-end py-3">
+                <div class="col-sm-6 col-md-5 col-lg-1">
+                    <button type="submit" id="submit" class="btn btn-danger"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">Subir</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tu artículo esta en proceso de revisión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Tu artículo sera revisado por uno de nuestros administradores y se te hará llegar una
+                    notificación cuando este proceso este terminado </p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'escr' %}"><button type="button" class="btn btn-danger">Aceptar</button></a>
+            </div>
+        </div>
     </div>
-    <!-- Fin modal -->
+</div>
+<div id="message">
 
-   
-
+</div>
+<!-- Fin modal -->
 {% endblock contenido %}
 
 {% block script_final %}
- <script src="{% static 'js/escribir.js' %}"></script>
+<script src="{% static 'js/escribir.js' %}"></script>
 {% endblock script_final %}
