@@ -1,52 +1,91 @@
-{% extends "base.html" %}
-{%load static %}
-{% block titulo %}
- Contacto - Caos News
- {% endblock titulo %}
- {%block css %}
- <link rel="stylesheet" href="{% static 'css/style.css' %}">
- {% endblock css%}
-{% block contenido %}
-    <!-- Formulario -->
-    <div class="container">
-        <div class="top border p-4">
-            <h1 class="text-center">Contacta a Caos News</h1>
-            <h4 style="font-weight: 900;">Opción 1:</h4>
-            <div class="text-center">
-                <img src="{% static 'img/whatsapp.png' %}" alt="" class="rounded  img-fluid">
-            </div>
-            <h4 style="font-weight: 900;">Opción 2:</h4>
-            <p class="text-muted">Completa el siguiente formulario con el tema de tu denuncia</p>
-            <form class="row g-3" action="">
-                <div class="col-md-6">
-                    <label for="firstName" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="firstName" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="lastName" class="form-label">Apellido</label>
-                    <input type="text" class="form-control" id="lastName" required>
-                </div>
-                <div class="col-md-8">
-                    <label for="emailInfo" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="emailInfo" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="phoneNumber" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="phoneNumber" required placeholder="+56 9 8145 4971">
-                </div>
-                <div class="col-md-12">
-                    <label for="comments" class="form-label">Inserta tu mensaje</label>
-                    <textarea class="form-control" id="comments" rows="3"></textarea>
-                </div>
-                <div class="input-group">
-                    <input type="file" class="form-control" id="inputGroupFile04"
-                        aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir</button>
-                </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </div>
-            </form>
+{% extends "base.html" %} {%load static %} {% block titulo %} Contacto - Caos
+News {% endblock titulo %} {%block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock css%} {% block contenido %}
+<!-- Formulario -->
+<div class="container">
+    <div class="top border p-4">
+        <h1 class="text-center">Contacta a Caos News</h1>
+        <h4 style="font-weight: 900">Opción 1:</h4>
+        <div class="text-center">
+            <img src="{% static 'img/whatsapp.png' %}" alt="" class="rounded img-fluid" />
         </div>
+        <h4 style="font-weight: 900">Opción 2:</h4>
+        <p class="text-muted">
+            Completa el siguiente formulario con el tema de tu denuncia
+        </p>
+        <form class="row g-3 needs-validation" action="" novalidate>
+            <div class="col-md-6">
+                <label for="firstName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="firstName" required />
+                <div class="invalid-feedback">Porfavor, ingrese un nombre válido.</div>
+            </div>
+            <div class="col-md-6">
+                <label for="lastName" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="lastName" required />
+                <div class="invalid-feedback">Porfavor, ingrese un apellido válido.</div>
+            </div>
+            <div class="col-md-8">
+                <label for="emailInfo" class="form-label">Email</label>
+                <input type="email" class="form-control" id="emailInfo" required />
+                <div class="invalid-feedback">Porfavor, ingrese un email válido.</div>
+            </div>
+            <div class="col-md-4">
+                <label for="phoneNumber" class="form-label">Teléfono</label>
+                <input type="text" class="form-control" id="phoneNumber" required placeholder="+56 9 8145 4971" />
+                <div class="invalid-feedback">Porfavor, ingrese un teléfono válido.</div>
+            </div>
+            <div class="col-md-12">Inserta tu mensaje</label>
+                <textarea class="form-control" id="comments" rows="3" required></textarea>
+                <div class="invalid-feedback">Porfavor, ingrese un mensaje.</div>
+            </div>
+            <div class="input-group">
+                <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                    aria-label="Upload" />
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">
+                    Subir
+                </button>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" id="submit" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
     </div>
-   {% endblock contenido %}
+</div>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+                if (form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    //alert("Formulario enviado")
+                    Swal.fire(
+                        '¡Enviado!',
+                        'Tu mensaje fue enviado. Te contactaremos a la brevedad',
+                        'success'
+                    ).then(function () {
+                        location.reload(true);
+                    })
+
+                }
+            }, false)
+        })
+    })()
+</script>
+{% endblock contenido %}
