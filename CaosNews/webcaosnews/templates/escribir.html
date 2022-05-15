@@ -17,7 +17,8 @@ Formulario de Publicación de Noticias - Caos News
 {% block contenido %}
 <!-- Contenido -->
 <div class="container border border-bottom-0">
-    <form action="" class="was-validated">
+    <form action="" id="formulario" method="post" class="was-validated">
+        {% csrf_token %}
         <div class="top p-4">
             <h1 class="text-center  titulo-web shadow ">Escritura de Artículo</h1>
         </div>
@@ -25,7 +26,7 @@ Formulario de Publicación de Noticias - Caos News
         <div class="form-group">
             <div class="mb-1">
                 <label for="exampleFormControlInput1" class="form-label">Título</label>
-                <input type="text" class="form-control" id="validationDefault03" required>
+                <input type="text" class="form-control" id="titulo" required>
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Imagen de Portada</label>
@@ -33,7 +34,7 @@ Formulario de Publicación de Noticias - Caos News
             </div>
             <!-- Selectores -->
             <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                <select class="form-select " required aria-label="select example">
+                <select class="form-select " required aria-label="select example" id="categoria">
                     <option value="">Categoría</option>
                     <option value="1">Mundo</option>
                     <option value="2">Política</option>
@@ -63,37 +64,17 @@ Formulario de Publicación de Noticias - Caos News
         <div class="row justify-content-end" style="margin-bottom: 40px;">
             <div class="row justify-content-end py-3">
                 <div class="col-sm-6 col-md-5 col-lg-1">
-                    <button type="submit" id="submit" class="btn btn-danger"
-                    data-bs-toggle="modal" data-bs-target="#exampleModal">Subir</button>
+                    <button type="submit" id="submit" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Subir</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tu artículo esta en proceso de revisión</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Tu artículo sera revisado por uno de nuestros administradores y se te hará llegar una
-                    notificación cuando este proceso este terminado </p>
-            </div>
-            <div class="modal-footer">
-                <a href="{% url 'escr' %}"><button type="button" class="btn btn-danger">Aceptar</button></a>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="message">
-
-</div>
-<!-- Fin modal -->
 {% endblock contenido %}
 
 {% block script_final %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script src="{% static 'js/escribir.js' %}"></script>
 {% endblock script_final %}
