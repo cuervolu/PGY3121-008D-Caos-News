@@ -1,27 +1,3 @@
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(() => {
-    'use strict'
-  
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-  
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-          Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-          )
-        }
-  
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
 
 const useDarkMode = window.matchMedia('(prefers-color-scheme: white)').matches;
 const isSmallScreen = window.matchMedia('(max-width: 1023.5px)').matches;
@@ -85,5 +61,5 @@ tinymce.init({
     contextmenu: 'link image table',
     skin: useDarkMode ? 'oxide-dark' : 'oxide',
     content_css: useDarkMode ? 'dark' : 'default',
-    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',  
 });

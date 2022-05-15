@@ -17,7 +17,7 @@ Formulario de Publicación de Noticias - Caos News
 {% block contenido %}
 <!-- Contenido -->
 <div class="container border border-bottom-0">
-    <form action="" id="formulario" method="post" class="was-validated">
+    <form action="" id="formulario"  class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="top p-4">
             <h1 class="text-center  titulo-web shadow ">Escritura de Artículo</h1>
@@ -47,6 +47,11 @@ Formulario de Publicación de Noticias - Caos News
             <div>
                 <textarea placeholder="Inserte su texto aquí...">
                      </textarea>
+                <div id="character_count"></div>
+                <div class=" error invalid-feedback hide">
+                    Please choose a username.
+                </div>
+
             </div>
             <!-- Fin TinyMCE -->
         </div>
@@ -64,13 +69,45 @@ Formulario de Publicación de Noticias - Caos News
         <div class="row justify-content-end" style="margin-bottom: 40px;">
             <div class="row justify-content-end py-3">
                 <div class="col-sm-6 col-md-5 col-lg-1">
-                    <button type="submit" id="submit" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Subir</button>
+                    <button type="submit" id="submit" class="btn btn-danger">Subir</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+
+                }
+                form.classList.add('was-validated')
+
+                if (form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    //alert("Formulario enviado")
+                    Swal.fire({
+                        title: '¡Enviado!',
+                        text: 'El formulario ha sido enviado',
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+            }, false)
+        })
+    })()
+</script>
 {% endblock contenido %}
 
 {% block script_final %}
