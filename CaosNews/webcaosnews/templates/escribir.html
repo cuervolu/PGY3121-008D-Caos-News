@@ -17,7 +17,7 @@ Formulario de Publicación de Noticias - Caos News
 {% block contenido %}
 <!-- Contenido -->
 <div class="container border border-bottom-0">
-    <form action="" id="formulario"  class="needs-validation" novalidate>
+    <form action="" id="formulario" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="top p-4">
             <h1 class="text-center  titulo-web shadow ">Escritura de Artículo</h1>
@@ -75,6 +75,7 @@ Formulario de Publicación de Noticias - Caos News
         </div>
     </form>
 </div>
+
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
@@ -98,14 +99,29 @@ Formulario de Publicación de Noticias - Caos News
                     event.stopPropagation()
                     //alert("Formulario enviado")
                     Swal.fire({
-                        title: '¡Enviado!',
-                        text: 'El formulario ha sido enviado',
-                        icon: 'success',
-                        confirmButtonText: 'Aceptar'
+                        title: '¿Está seguro de continuar?',
+                        text: "Luego de enviar el artículo, no podrá editarlo.",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '##DC3545',
+                        confirmButtonText: 'Estoy seguro'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                '¡Enviado!',
+                                'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado',
+                                'success'
+                            ).then(function(){
+                                window.location.href = "{% url 'indx' %}";
+                            })
+                            
+                        }
                     })
                 }
             }, false)
         })
+       
     })()
 </script>
 {% endblock contenido %}
