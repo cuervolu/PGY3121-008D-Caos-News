@@ -138,55 +138,6 @@ Formulario de Publicación de Noticias - Caos News
         }
     })
 </script>
-
-<!-- <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (() => {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-            form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-
-                }
-                form.classList.add('was-validated')
-
-                if (form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    //alert("Formulario enviado")
-                    Swal.fire({
-                        title: '¿Está seguro de continuar?',
-                        text: "Luego de enviar el artículo, no podrá editarlo.",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '##DC3545',
-                        confirmButtonText: 'Estoy seguro'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                '¡Enviado!',
-                                'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado',
-                                'success'
-                            ).then(function () {
-                                window.location.href = "{% url 'indx' %}";
-                            })
-
-                        }
-                    })
-                }
-            }, false)
-        })
-
-    })()
-</script> -->
 {% endblock contenido %}
 
 {% block script_final %}
