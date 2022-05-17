@@ -6,6 +6,8 @@ Formulario de Publicación de Noticias - Caos News
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/escribir.css' %}">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
 {% endblock css%}
 {% block script %}
 <!-- Tiny MC -->
@@ -45,13 +47,11 @@ Formulario de Publicación de Noticias - Caos News
             </div>
             <!-- TinyMCE -->
             <div>
-                <textarea placeholder="Inserte su texto aquí...">
-                     </textarea>
-                <div id="character_count"></div>
-                <div class=" error invalid-feedback hide">
+                <textarea id="tinyeditor" placeholder="Inserte su texto aquí...">
+                </textarea>
+                <div class="tinymce invalid-feedback">
                     Please choose a username.
-                </div>
-
+                  </div>
             </div>
             <!-- Fin TinyMCE -->
         </div>
@@ -75,8 +75,71 @@ Formulario de Publicación de Noticias - Caos News
         </div>
     </form>
 </div>
-
 <script>
+    $("#submit").click(function () {
+        var editorContent = tinyMCE.get('tinyeditor').getContent();
+        if (editorContent == '' || editorContent >= 10) {
+            Swal.fire({
+                title: 'Error',
+                text: 'El contenido del artículo debe ser mayor a 10 caracteres',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+            tinyMCE.activeEditor.focus();
+            return false;  
+        }
+        else {
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+
+                        }
+                        form.classList.add('was-validated')
+
+                        if (form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            //alert("Formulario enviado")
+                            Swal.fire({
+                                title: '¿Está seguro de continuar?',
+                                text: "Luego de enviar el artículo, no podrá editarlo.",
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '##DC3545',
+                                confirmButtonText: 'Estoy seguro'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    Swal.fire(
+                                        '¡Enviado!',
+                                        'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado',
+                                        'success'
+                                    ).then(function () {
+                                        window.location.href = "{% url 'indx' %}";
+                                    })
+
+                                }
+                            })
+                        }
+                    }, false)
+                })
+
+            })()
+        }
+    })
+</script>
+
+<!-- <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
         'use strict'
@@ -112,22 +175,21 @@ Formulario de Publicación de Noticias - Caos News
                                 '¡Enviado!',
                                 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado',
                                 'success'
-                            ).then(function(){
+                            ).then(function () {
                                 window.location.href = "{% url 'indx' %}";
                             })
-                            
+
                         }
                     })
                 }
             }, false)
         })
-       
+
     })()
-</script>
+</script> -->
 {% endblock contenido %}
 
 {% block script_final %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script src="{% static 'js/escribir.js' %}"></script>
 {% endblock script_final %}

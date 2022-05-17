@@ -62,4 +62,8 @@ tinymce.init({
     skin: useDarkMode ? 'oxide-dark' : 'oxide',
     content_css: useDarkMode ? 'dark' : 'default',
     content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',  
-});
+    setup: function(ed){
+        ed.on("blur", function () {
+            $("#" + ed.id).val(tinyMCE.activeEditor.getContent());
+        })}
+    });
