@@ -1,15 +1,19 @@
 {% extends "base.html" %}
+{% load socialaccount %}
+{% providers_media_js %}
 {%load static %}
 {% block titulo %}
- Iniciar Sesión - Caos News
- {% endblock titulo %}
- {%block css %}
- <link rel="stylesheet" href="{% static 'css/style.css' %}">
- {% endblock css%}
+Iniciar Sesión - Caos News
+{% endblock titulo %}
+{%block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock css%}
 {% block contenido %}
-    <!-- Formulario -->
-    <div class="container-fluid ps-md-0">
-        <form action="" class="needs-validation" novalidate>
+<!-- Formulario -->
+<div class="container-fluid ps-md-0">
+    <form action="{% url 'log' %}" method="POST" class="needs-validation" novalidate>
+        {% csrf_token %}
         <div class="row g-0">
             <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
             <div class="col-md-8 col-lg-6">
@@ -19,53 +23,57 @@
                             <div class="col-md-9 col-lg-8 mx-auto">
                                 <h3 class="login-heading mb-4">¡Bienvenido de vuelta!</h3>
                                 <!-- Sign In-->
-                                <form>
-                                    <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="floatingInput"
-                                            placeholder="name@caosnews.cl" required>
-                                        <label for="floatingInput">Email</label>
-                                        <div class="valid-feedback">
-                                            ¡Así se hace!
-                                          </div>
-                                          <div class="invalid-feedback">
-                                            Por favor, ingrese un email valido.
-                                          </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="txtEmail" name="txtEmail"
+                                        placeholder="name@caosnews.cl" required>
+                                    <label for="txtEmail">Email o Nombre de Usuario</label>
+                                    <div class="valid-feedback">
+                                        ¡Así se hace!
                                     </div>
-                                    <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" id="floatingPassword"
-                                            placeholder="Password"required>
-                                        <label for="floatingPassword">Contraseña</label>
-                                          <div class="invalid-feedback">
-                                            Contraseña incorrecta.
-                                          </div>
+                                    <div class="invalid-feedback">
+                                        Por favor, ingrese un email o usuario valido.
                                     </div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="txtPassword" name="txtPassword"
+                                        placeholder="Password" required>
+                                    <label for="txtPassword">Contraseña</label>
+                                    <div class="invalid-feedback">
+                                        Contraseña incorrecta.
+                                    </div>
+                                </div>
 
-                                    <div class="form-check mb-3">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="rememberPasswordCheck">
-                                        <label class="form-check-label" for="rememberPasswordCheck">
-                                            Recordar Contraseña
-                                        </label>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input was-validated" type="checkbox" value=""
+                                        id="rememberPasswordCheck">
+                                    <label class="form-check-label" for="rememberPasswordCheck">
+                                        Recordar Contraseña
+                                    </label>
+                                </div>
+                                <hr class="my-4">
+                                    <div class="d-grid mb-2">
+                                        <button
+                                            class="btn btn-lg btn-google btn-login fw-bold text-uppercase text-decoration-none"
+                                            type="submit">
+                                            <i class="icon-google me-2"></i><a
+                                                href="{% provider_login_url 'google' method = 'oauth2' %}"
+                                                class="">Entrar Con Google</a>
+                                        </button>
                                     </div>
+                            </form>
 
-                                    <div class="d-grid">
-                                        <button class="btn btn-lg btn-danger btn-login text-uppercase fw-bold mb-2"
-                                            type="submit">Iniciar Sesión</button>
-                                        <div class="text-center">
-                                            <a class="small" href="#">¿Olvidaste la contraseña?</a>
-                                        </div>
-                                        <div class="text-center">
-                                            <p class="small" style="padding-top: 10px;">¿No eres un miembro? <a
-                                                    href="{% url 'sp' %}">Regístrate</a></p>
-                                        </div>
+                                <div class="d-grid">
+                                    <button class="btn btn-lg btn-danger btn-login text-uppercase fw-bold mb-2"
+                                        type="submit">Iniciar Sesión</button>
+                                    <div class="text-center">
+                                        <a class="small" href="#">¿Olvidaste la contraseña?</a>
                                     </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                    <div class="text-center">
+                                        <p class="small" style="padding-top: 10px;">¿No eres un miembro? <a
+                                                href="{% url 'sp' %}">Regístrate</a></p>
+                                    </div>
+                                </div>
     </form>
-    </div>
-  {% endblock contenido %}
+</div>
+
+{% endblock contenido %}

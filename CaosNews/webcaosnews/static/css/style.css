@@ -43,4 +43,8 @@ a {
     padding: 0.75rem 1rem;
   }
 
- /* Media Queries */
+  .btn-google {
+    color: white !important;
+    text-decoration: none !important;
+    background-color: #ea4335 !important;
+  } 

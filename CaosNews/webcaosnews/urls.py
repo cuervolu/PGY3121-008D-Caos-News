@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.urls import path
-from .views import index, contacto, signup,deportes,login,terms,politica,nacional,mundo,escribir
+from django.urls import path, include
+from .views import index, contacto, signup,deportes,login,terms,politica,nacional,mundo,escribir,cerrar_sesion
 
 urlpatterns = [
     path('', index,name = 'indx'),
@@ -13,4 +13,6 @@ urlpatterns = [
     path('nacional/',nacional,name="nac"),
     path('mundo/',mundo,name="mun"),
     path('escribir/',escribir,name="escr"),
+     path('cerrar/',cerrar_sesion,name='cerrar'),
+    path('accounts/', include('allauth.urls')),
 ]
