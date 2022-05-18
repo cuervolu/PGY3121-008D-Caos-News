@@ -1,4 +1,5 @@
 from calendar import c
+import email
 from django.shortcuts import render
 # incorporar el modelo de Periodista
 from .models import Periodista
@@ -6,6 +7,7 @@ from .models import Periodista
 from django.contrib.auth.models import User
 # importar librerias que validan el ingreso o login a una pagina
 from django.contrib.auth import authenticate,logout,login as login_aut
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -27,7 +29,9 @@ def login(request):
             login_aut(request,us)
             return render(request,"index.html")
         else:
+            messages.error(request, 'Usuario o contraseña incorrectos')
             contexto = {"msg": "Usuario o contraseña incorrecto"}
+            
     return render(request,"login.html", contexto)
 
 def signup(request):

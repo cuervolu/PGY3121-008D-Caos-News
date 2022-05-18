@@ -51,30 +51,40 @@ Iniciar Sesión - Caos News
                                     </label>
                                 </div>
                                 <hr class="my-4">
-                                    <div class="d-grid mb-2">
-                                        <button class="btn btn-lg btn-danger btn-login text-uppercase fw-bold mb-2"
+                                <div class="d-grid mb-2">
+                                    <button class="btn btn-lg btn-danger btn-login text-uppercase fw-bold mb-2"
                                         type="submit">Iniciar Sesión</button>
-                                        <button
-                                            class="btn btn-lg btn-google btn-login fw-bold text-uppercase"
-                                            type="submit">
-                                            <i class="icon-google me-2"></i>Entrar Con Google</a>
+                                        <button class="btn btn-lg btn-google btn-login fw-bold text-uppercase text-decoration-none" type="submit" style="color: white;">
+                                            <i class="icon-google me-2"></i><a
+                                                href="{% provider_login_url 'google' method = 'oauth2' %}" style="color: white;"
+                                                >Entrar Con Google</a>
                                         </button>
-                                    </div>
-                                <div class="d-grid">
-                                    <div class="text-center">
-                                        <a class="small" href="#">¿Olvidaste la contraseña?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <p class="small" style="padding-top: 10px;">¿No eres un miembro? <a
-                                                href="{% url 'sp' %}">Regístrate</a></p>
-                                    </div>
+                                    <div class="container my-3">
+                                        {% if messages %}
+                                        {% for message in messages %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <strong>{{message}}</strong>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                          </div>
+                                          {% endfor %}
+                                        {% endif %}
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <div class="text-center">
+                                    <a class="small" href="#">¿Olvidaste la contraseña?</a>
+                                </div>
+                                <div class="text-center">
+                                    <p class="small" style="padding-top: 10px;">¿No eres un miembro? <a
+                                            href="{% url 'sp' %}">Regístrate</a></p>
                                 </div>
                             </div>
                         </div>
-                    </div> 
-                </div> 
-            </div> 
-        </div> 
-    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</form>
 </div>
 {% endblock contenido %}
