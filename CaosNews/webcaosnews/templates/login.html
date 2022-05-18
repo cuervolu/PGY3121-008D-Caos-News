@@ -52,19 +52,15 @@ Iniciar Sesión - Caos News
                                 </div>
                                 <hr class="my-4">
                                     <div class="d-grid mb-2">
+                                        <button class="btn btn-lg btn-danger btn-login text-uppercase fw-bold mb-2"
+                                        type="submit">Iniciar Sesión</button>
                                         <button
-                                            class="btn btn-lg btn-google btn-login fw-bold text-uppercase text-decoration-none"
+                                            class="btn btn-lg btn-google btn-login fw-bold text-uppercase"
                                             type="submit">
-                                            <i class="icon-google me-2"></i><a
-                                                href="{% provider_login_url 'google' method = 'oauth2' %}"
-                                                class="">Entrar Con Google</a>
+                                            <i class="icon-google me-2"></i>Entrar Con Google</a>
                                         </button>
                                     </div>
-                            </form>
-
                                 <div class="d-grid">
-                                    <button class="btn btn-lg btn-danger btn-login text-uppercase fw-bold mb-2"
-                                        type="submit">Iniciar Sesión</button>
                                     <div class="text-center">
                                         <a class="small" href="#">¿Olvidaste la contraseña?</a>
                                     </div>
@@ -73,7 +69,12 @@ Iniciar Sesión - Caos News
                                                 href="{% url 'sp' %}">Regístrate</a></p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
     </form>
 </div>
-
 {% endblock contenido %}
