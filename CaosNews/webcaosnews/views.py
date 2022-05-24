@@ -1,13 +1,14 @@
-from calendar import c
-import email
 from django.shortcuts import render
-# incorporar el modelo de Periodista
-from .models import Periodista
+# incorporar el modelo de Periodista,Area,Categoría
+from .models import Periodista,Area,Categoria,Noticias
 #importar modelo de tablas del User
 from django.contrib.auth.models import User
 # importar librerias que validan el ingreso o login a una pagina
 from django.contrib.auth import authenticate,logout,login as login_aut
 from django.contrib import messages
+#importar una librería decoradora , permite evitar el ingreso de usuarios a la página web
+from django.contrib.auth.decorators import login_required, permission_required
+
 
 # Create your views here.
 def index(request):
@@ -64,9 +65,38 @@ def nacional(request):
 def mundo(request):
     return render(request,"mundo.html")
 
-def escribir(request):
-    return render(request,"escribir.html")
-
 def cerrar_sesion(request):
     logout(request)
     return render(request,"index.html")
+
+
+@login_required(login_url='/login/')
+def panel(request):
+    return render(request,"panel.html")
+
+def escribir(request):
+    categorias = Categoria.objects.all() #Selecciono todos los registros
+    contexto = {"items":categorias}
+    if request.POST:
+        titulo = request.POST.get("txtTitulo")
+        portada = request.FILES.get("txtImagen")
+        catego = request.POST.get("cboCategoria")
+        contenido = request.POST.get("txtNoticia")
+        tags = request.POST.get("txtTags")
+        #seleccionar el registro completo de la categoría a buscar
+        obj_catego = Categoria.objects.get(nombre = catego)
+        mensaje = ""
+        try:
+            noticia = Noticias()
+            noticia.titulo = titulo
+            if portada is not None:
+                noticia.portada = portada
+            noticia.categoria = obj_catego
+            noticia.contenido = contenido
+            noticia.tags = tags
+            noticia.save()
+            mensaje = "Grabo Noticia"
+        except:
+            mensaje = "No grabo noticia"
+        contexto["mensaje"] = mensaje
+    return render(request,"escribir.html",contexto)

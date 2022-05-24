@@ -19,7 +19,7 @@ Formulario de Publicación de Noticias - Caos News
 {% block contenido %}
 <!-- Contenido -->
 <div class="container border border-bottom-0">
-    <form action="" id="formulario" class="needs-validation" novalidate>
+    <form action="{% url 'panel' %}" id="formulario" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="top p-4">
             <h1 class="text-center  titulo-web shadow ">Escritura de Artículo</h1>
@@ -28,37 +28,34 @@ Formulario de Publicación de Noticias - Caos News
         <div class="form-group">
             <div class="mb-1">
                 <label for="exampleFormControlInput1" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" required>
+                <input type="text" name="txtTitulo" class="form-control" id="titulo" required>
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">Imagen de Portada</label>
-                <input class="form-control" type="file" id="formFile" required>
+                <!--Para aceptar todo tipo de imagenes: accept="image/*"-->
+                <input class="form-control" name="txtImagen" type="file" accept="image/png, image/jpeg, image/jpg"  id="txtImagen" required>
             </div>
             <!-- Selectores -->
             <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                <select class="form-select " required aria-label="select example" id="categoria">
+                <select class="form-select" name="cboCategoria" required aria-label="select example" id="categoria">
                     <option value="">Categoría</option>
-                    <option value="1">Mundo</option>
-                    <option value="2">Política</option>
-                    <option value="3">Nacional</option>
-                    <option value="3">Deportes</option>
+                    {% for reg in items %}
+                        <option value="{{reg.nombre}}">{{reg.nombre}}</option>
+                    {% endfor %}
                 </select>
                 <div class="invalid-feedback">Escoge una categoría</div>
             </div>
             <!-- TinyMCE -->
             <div>
-                <textarea id="tinyeditor" placeholder="Inserte su texto aquí...">
+                <textarea id="tinyeditor" name="txtNoticia" placeholder="Inserte su texto aquí...">
                 </textarea>
-                <div class="tinymce invalid-feedback">
-                    Please choose a username.
-                  </div>
             </div>
             <!-- Fin TinyMCE -->
         </div>
         <div class="mb-3 py-3">
             <div class="input-group has-validation">
                 <span class="input-group-text" id="inputGroupPrepend">#</span>
-                <input type="text" class="form-control" id="validationCustomTags" aria-describedby="inputGroupPrepend"
+                <input type="text" class="form-control" name="txtTags" id="txtTags" aria-describedby="inputGroupPrepend"
                     required>
                 <div class="invalid-feedback">
                     Por favor, añada etiquetas.
@@ -70,6 +67,7 @@ Formulario de Publicación de Noticias - Caos News
             <div class="row justify-content-end py-3">
                 <div class="col-sm-6 col-md-5 col-lg-1">
                     <button type="submit" id="submit" class="btn btn-danger">Subir</button>
+                    {{mensaje}}
                 </div>
             </div>
         </div>
@@ -122,7 +120,7 @@ Formulario de Publicación de Noticias - Caos News
                                 if (result.isConfirmed) {
                                     Swal.fire(
                                         '¡Enviado!',
-                                        'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado',
+                                        ' {{mensaje}} Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado',
                                         'success'
                                     ).then(function () {
                                         window.location.href = "{% url 'indx' %}";
