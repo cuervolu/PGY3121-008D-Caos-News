@@ -52,4 +52,4 @@ class Contacto(models.Model):
     email = models.CharField(max_length=100)
     telefono = models.IntegerField(unique=True)
     mensaje = models.TextField(null=False)
-    imagen = models.FileField(upload_to='fotos',null=True)
+    archivo = models.FileField(upload_to='fotos',null=True)
