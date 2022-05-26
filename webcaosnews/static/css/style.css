@@ -1,0 +1,48 @@
+#iniciarSesion {
+    margin-right: 15px;
+}
+
+* {
+    font-family: "Fira Sans", sans-serif;
+}
+
+#carouselExampleCaptions .carousel-item img {
+    margin-top: 15px;
+    object-fit: cover;
+    object-position: center;
+    /* height: 70vh; */
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+/* footer {
+    margin-top: 25px; 
+} */
+
+/* Sign in */
+.login {
+    min-height: 100vh;
+  }
+  
+  .bg-image {
+    background-image: url('../img/sign\ in.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .login-heading {
+    font-weight: 300;
+  }
+  
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .btn-google {
+    background-color: #ea4335 !important;
+  } 
