@@ -41,7 +41,7 @@ class Noticias(models.Model):
     titulo = models.CharField(max_length=50)
     portada = models.ImageField(upload_to='fotos',null=True)
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
-    contenido = models.CharField(max_length=1500)
+    contenido = models.TextField(null=False)
     etiquetas = models.CharField(max_length=150)
     fecha = models.DateField(auto_now=True)
     ubicacion = models.ForeignKey(Regiones,on_delete=models.CASCADE)
