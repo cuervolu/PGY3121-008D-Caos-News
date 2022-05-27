@@ -39,7 +39,7 @@ Formulario de Publicación de Noticias - Caos News
             </div>
             <!-- Selectores -->
             <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                <select class="form-select" name="cboCategoria" required aria-label="select example" id="categoria">
+                <select class="form-select" name="cboCategoria" id="cboCategoria" required aria-label="select example" id="categoria">
                     <option value="">Categoría</option>
                     {% for reg in items %}
                     <option value="{{reg.nombre}}">{{reg.nombre}}</option>
@@ -142,16 +142,16 @@ Formulario de Publicación de Noticias - Caos News
                             if (!form.checkValidity()) {
                                 event.preventDefault()
                                 event.stopPropagation()
+                            } if (form.checkValidity()) {
+                                $("#mConfirmacion").modal("show");
+                                event.preventDefault()
                             }
-                            $("#mConfirmacion").modal("show");
-
-                            event.preventDefault()
+                            // event.preventDefault()
                             form.classList.add('was-validated')
                         }, false)
                     })
             })()
         }
-
     })
 </script>
 {% endblock contenido %}
