@@ -17,6 +17,11 @@ tinymce.init({
     autosave_restore_when_empty: false,
     autosave_retention: '2m',
     image_advtab: true,
+    entity_encoding: 'raw',
+    content_langs: [
+        { title: 'English', code: 'en' },
+        { title: 'Spanish', code: 'es' }
+      ],
     link_list: [
         { title: 'My page 1', value: 'https://www.tiny.cloud' },
         { title: 'My page 2', value: 'http://www.moxiecode.com' }

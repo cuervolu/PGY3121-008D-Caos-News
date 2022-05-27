@@ -29,21 +29,26 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
+    
+class Regiones(models.Model):
+    id_region = models.AutoField(primary_key=True)
+    nombre_region = models.CharField(max_length=50)
+    def __str__(self):
+        return self.nombre_region
 class Noticias(models.Model):
     id_noticia = models.AutoField(primary_key=True),
-    id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
+    # id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
     titulo = models.CharField(max_length=50)
     portada = models.ImageField(upload_to='fotos',null=True)
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
     contenido = models.CharField(max_length=1500)
     etiquetas = models.CharField(max_length=150)
     fecha = models.DateField(auto_now=True)
-    ubicacion = models.CharField(max_length=50)
+    ubicacion = models.ForeignKey(Regiones,on_delete=models.CASCADE)
     aprobada = models.BooleanField(default=False)
     comentario = models.TextField(default='--')
     def __str__(self):
         return self.titulo
-    
 
 class Contacto(models.Model):
     id_contacto = models.AutoField(primary_key=True),

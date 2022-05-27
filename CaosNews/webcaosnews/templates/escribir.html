@@ -38,14 +38,28 @@ Formulario de Publicación de Noticias - Caos News
                     id="txtImagen" required>
             </div>
             <!-- Selectores -->
-            <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                <select class="form-select" name="cboCategoria" id="cboCategoria" required aria-label="select example" id="categoria">
-                    <option value="">Categoría</option>
-                    {% for reg in items %}
-                    <option value="{{reg.nombre}}">{{reg.nombre}}</option>
-                    {% endfor %}
-                </select>
-                <div class="invalid-feedback">Escoge una categoría</div>
+            <div class="row">
+                <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
+                    <select class="form-select" name="cboCategoria" id="cboCategoria" required
+                        aria-label="select example" id="categoria">
+                        <option value="">Categoría</option>
+                        {% for reg in items %}
+                        <option value="{{reg.nombre}}">{{reg.nombre}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Escoge una categoría</div>
+                </div>
+                <!-- Ubicación -->
+                <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
+                    <select class="form-select" name="cboUbicacion" id="cboUbicacion" required
+                        aria-label="select example" id="ubicacion">
+                        <option value="">Ubicación</option>
+                        {% for ub in u_items %}
+                        <option value="{{ub.nombre_region}}">{{ub.nombre_region}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Escoge una ubicación</div>
+                </div>
             </div>
             <!-- TinyMCE -->
             <div>
@@ -89,7 +103,7 @@ Formulario de Publicación de Noticias - Caos News
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-danger" data-bs-target="#mFinal" data-bs-toggle="modal" data-bs-dismiss="modal">Estoy seguro</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Estoy seguro</button>
                 </div>
             </div>
         </div>
@@ -142,12 +156,21 @@ Formulario de Publicación de Noticias - Caos News
                             if (!form.checkValidity()) {
                                 event.preventDefault()
                                 event.stopPropagation()
-                            } if (form.checkValidity()) {
-                                $("#mConfirmacion").modal("show");
-                                event.preventDefault()
                             }
-                            // event.preventDefault()
                             form.classList.add('was-validated')
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{% url 'escr' %}",
+                                    enctype:"multipart/form-data",
+                                    data: $("#formulario").serialize(),
+                                    success: function (data) {
+                                        $("#mConfirmacion").html(data);
+                                        $("#mConfirmacion").modal("show");
+                                        event.preventDefault()
+                                        form.classList.add('was-validated')
+                                    }
+                                });
+                            console.log('was validated ok')
                         }, false)
                     })
             })()
