@@ -1,6 +1,6 @@
 from django.shortcuts import render
 # incorporar el modelo de Periodista,Area,Categoría
-from .models import Periodista, Area, Categoria, Noticias, Regiones
+from .models import Periodista, Area, Categoria, Noticias, Regiones, Contacto
 # importar modelo de tablas del User
 from django.contrib.auth.models import User
 # importar librerias que validan el ingreso o login a una pagina
@@ -16,7 +16,29 @@ def index(request):
 
 
 def contacto(request):
-    return render(request, "contacto.html")
+    mensaje = {"msg": ""}
+    if request.POST:
+        nombre = request.POST.get("txtFirstName")
+        apellido = request.POST.get("txtLastName")
+        email = request.POST.get("txtEmail")
+        telefono = request.POST.get("txtPhone")
+        comentario = request.POST.get("txtComments")
+        archivo = request.FILES.get("txtFile")
+        try: 
+            contact = Contacto()
+            contact.pnombre = nombre
+            contact.appaterno = apellido
+            contact.email = email
+            contact.telefono = telefono
+            contact.mensaje = comentario
+            contact.archivo = archivo
+            contact.save()
+            mensaje = {"msg": "Mensaje enviado correctamente"}
+            print(mensaje)
+        except Exception as e:
+            mensaje = {"msg": "Error al enviar el mensaje", "error": e}
+            print(mensaje)
+    return render(request, "contacto.html", mensaje)
 
 
 def deportes(request):

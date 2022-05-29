@@ -1,7 +1,8 @@
 {% extends "base.html" %} {%load static %} {% block titulo %} Contacto - Caos
 News {% endblock titulo %} {%block css %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<link rel="stylesheet" href="{% static 'css/contacto.css' %}" />
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 {% endblock css%} {% block contenido %}
 <!-- Formulario -->
 <div class="container">
@@ -15,33 +16,34 @@ News {% endblock titulo %} {%block css %}
         <p class="text-muted">
             Completa el siguiente formulario con el tema de tu denuncia
         </p>
-        <form class="row g-3 needs-validation" action="" novalidate>
+        <form action="{% url 'cont' %}" name="formulario" id="formulario" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+            {% csrf_token %}
             <div class="col-md-6">
-                <label for="firstName" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="firstName" required />
+                <label for="txtFirstName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" required />
                 <div class="invalid-feedback">Porfavor, ingrese un nombre válido.</div>
             </div>
             <div class="col-md-6">
-                <label for="lastName" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="lastName" required />
+                <label for="txtLastName" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="txtLastName" name="txtLastName" required />
                 <div class="invalid-feedback">Porfavor, ingrese un apellido válido.</div>
             </div>
             <div class="col-md-8">
-                <label for="emailInfo" class="form-label">Email</label>
-                <input type="email" class="form-control" id="emailInfo" required />
+                <label for="txtEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="txtEmail" name="txtEmail" required />
                 <div class="invalid-feedback">Porfavor, ingrese un email válido.</div>
             </div>
             <div class="col-md-4">
-                <label for="phoneNumber" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="phoneNumber" required placeholder="+56 9 8145 4971" />
+                <label for="txtPhone" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="txtPhone" pattern="[0-9]{9}" name="txtPhone" required placeholder="9 8145 4971" />
                 <div class="invalid-feedback">Porfavor, ingrese un teléfono válido.</div>
             </div>
             <div class="col-md-12">Inserta tu mensaje</label>
-                <textarea class="form-control" id="comments" rows="3" required></textarea>
+                <textarea class="form-control" id="txtComments" name="txtComments" rows="3" required></textarea>
                 <div class="invalid-feedback">Porfavor, ingrese un mensaje.</div>
             </div>
             <div class="input-group">
-                <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                <input type="file" class="form-control" id="txtFile" name="txtFile" aria-describedby="inputGroupFileAddon04"
                     aria-label="Upload" />
                 <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">
                     Subir
@@ -55,6 +57,7 @@ News {% endblock titulo %} {%block css %}
 </div>
 
 <script>
+    //Validación del formulario
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (() => {
         'use strict'
@@ -69,20 +72,35 @@ News {% endblock titulo %} {%block css %}
                     event.preventDefault()
                     event.stopPropagation()
                 }
-
                 form.classList.add('was-validated')
                 if (form.checkValidity()) {
                     event.preventDefault()
                     event.stopPropagation()
                     //alert("Formulario enviado")
-                    Swal.fire(
-                        '¡Enviado!',
-                        'Tu mensaje fue enviado. Te contactaremos a la brevedad',
-                        'success'
-                    ).then(function () {
-                        location.reload(true);
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'cont' %}",
+                        enctype:"multipart/form-data",
+                        data: $("#formulario").serialize(),success: function (data) {
+                            Swal.fire({
+                                title: '¡Enviado!',
+                                text: 'Tu mensaje fue enviado. Te contactaremos a la brevedad',
+                                icon: 'success',
+                                confirmButtonText: 'OK'
+                            }).then(function () {
+                                form.classList.add('was-validated')
+                                location.reload(true);
+                                console.log('was validated ok')
+                            })},
+                        error: function (data) {
+                            Swal.fire({
+                                title: '¡Error!',
+                                text: 'Ha ocurrido un error.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            })
+                        }
                     })
-
                 }
             }, false)
         })

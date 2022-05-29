@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google', # for Google OAuth 2.0 
+    'phonenumber_field',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,8 +1,8 @@
 from pyexpat import model
 from tkinter import CASCADE
 from django.db import models
-from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 # Create your models here.
 class Area(models.Model):
@@ -55,6 +55,8 @@ class Contacto(models.Model):
     pnombre = models.CharField(max_length=50)
     appaterno = models.CharField(max_length=50)
     email = models.CharField(max_length=100)
-    telefono = models.IntegerField(unique=True)
+    telefono = PhoneNumberField(null=False, blank=False, unique=False,region='CL')
     mensaje = models.TextField(null=False)
-    archivo = models.FileField(upload_to='fotos',null=True)
+    archivo = models.FileField(upload_to='archivos_contacto',null=True)
+    def __str__(self):
+        return self.pnombre
