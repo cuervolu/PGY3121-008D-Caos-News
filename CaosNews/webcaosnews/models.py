@@ -1,7 +1,8 @@
-from pyexpat import model
+from email.policy import default
 from tkinter import CASCADE
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
+from django_fields import DefaultStaticImageField
 
 
 # Create your models here.
@@ -17,9 +18,9 @@ class Periodista(models.Model):
     apellido = models.CharField(max_length=50)
     usuario = models.CharField(max_length=50)
     email = models.EmailField()
-    telefono = models.IntegerField(unique=True)
+    telefono = PhoneNumberField(null=False, blank=False, unique=True,region='CL')
     area = models.ForeignKey(Area,on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='fotos',null=True)
+    imagen = models.ImageField(upload_to='fotos',null=True, default='fotos/default_photo.png')
     def __str__(self):
         return self.nombre
     

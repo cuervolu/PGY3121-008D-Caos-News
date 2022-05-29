@@ -1,0 +1,50 @@
+* {
+    font-family: "Fira Sans", sans-serif;
+}
+
+body{
+    overflow: hidden;
+}
+
+#sidebar-container{
+    min-height: 100vh;
+
+}
+
+#sidebar-container .logo{
+    padding: .875rem 1.25rem;
+}
+
+#sidebar-container .menu{
+    width: 18rem;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.btn-search{
+    right: 5px;
+}
+
+.bg-rojo{
+    background-color: #E9ECEF;
+}
+
+.avatar{
+    max-width: 35px !important;
+}
+
+#content{
+    overflow-y: auto;
+    height: 100vh;
+    padding-bottom: 5rem;
+}
+
+.stat{
+    border-right: 1px solid #DEE2E6;
+}
+
+.bg-mix{
+    background:linear-gradient(180deg, #f5f5f5 50%, #DEE2E6 0);
+}
