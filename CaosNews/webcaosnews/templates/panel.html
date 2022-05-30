@@ -1,149 +1,142 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
-    <link rel="stylesheet" href="{% static 'css/panel.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/fontello.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gcom" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <script src="https://kit.fontawesome.com/bcac893939.js" crossorigin="anonymous"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'img/favicon/site.webmanifest' %}">
-    <link rel="mask-icon" href="{% static 'img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-</head>
-
-<body>
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <div id="sidebar-container" class="bg-danger">
-            <div class="logo">
-                <h1 class="icon-codiepie text-light fw-bold fs-2">CAOS NEWS</h1>
+{% extends "basePanel.html" %}
+{%load static %}
+{% block titulo %}
+Panel Administrativo - Caos News
+{% endblock titulo%}
+{% block css %}
+{% endblock css %}
+{% block contenido %}
+<!-- Contenido -->
+<div id="content">
+    <section class="py-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9 ps-5">
+                    <h1 class="fw-bold mb-0">Bienvenido, {{user.first_name}} </h1>
+                    <p class="lead text-muted">Revisa la última información</p>
+                </div>
+                <div class="col-lg-2 d-flex">
+                    <button class="btn btn-danger w-100 align-self-center">Descargar reporte</button>
+                </div>
             </div>
-            <div class="menu">
-                <a href="#" class="d-block p-3 text-light"><i class="fa-solid fa-user me-2 lead"></i>Perfil</a>
-                <a href="#" class="d-block p-3 text-light"><i
-                        class="fa-solid fa-pen-to-square me-2 lead"></i>Escribir</a>
-                <a href="#" class="d-block p-3 text-light"><i
-                        class="fa-solid fa-chart-simple me-2 lead"></i>Estadísticas</a>
-                <a href="#" class="d-block p-3 text-light"><i
-                        class="fa-solid fa-sliders me-2 lead"></i>Configuración</a>
-            </div>
-
         </div>
-        <!-- Sidebar -->
-        <!-- Navbar -->
-        <div class="w-100">
-            <nav class="navbar bg-rojo navbar-expand-lg navbar-light border-bottom">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <form class="d-flex position-relative d-inline-block">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-search position-absolute" type="submit"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav md-auto me-5 ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="../static/img/putin.jpg" alt="Imagen de perfil"
-                                        class="img-fluid rounded-circle avatar me-2">
-                                    {{user.first_name}} {{user.last_name}}
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+    </section>
+    <section class="bg-mix">
+        <div class="container">
+            <div class="card rounded-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                            <div class="mx-auto">
+                                <h6 class="text-muted">Visitas mensuales</h6>
+                                <h3 class="fw-bold">100</h3>
+                                <h6 class="text-success fw-light"><i
+                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>50%</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                            <div class="mx-auto">
+                                <h6 class="text-muted">Artículos escritos</h6>
+                                <h3 class="fw-bold">467</h3>
+                                <h6 class="text-success fw-light"><i
+                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>30%</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                            <div class="mx-auto">
+                                <h6 class="text-muted">Artículos aprobados</h6>
+                                <h3 class="fw-bold">432</h3>
+                                <h6 class="text-success fw-light"><i
+                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>80%</h6>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 d-flex my-3">
+                            <div class="mx-auto">
+                                <h6 class="text-muted">Artículos corregidos</h6>
+                                <h3 class="fw-bold">458</h3>
+                                <h6 class="text-success fw-light"><i
+                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>10%</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </nav>
-            <!-- Navbar -->
-            <!-- Contenido -->
-            <div id="content">
-                <section class="py-3">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-9 ps-5">
-                                <h1 class="fw-bold mb-0">Bienvenido, {{user.first_name}} </h1>
-                                <p class="lead text-muted">Revisa la última información</p>
-                            </div>
-                            <div class="col-lg-2 d-flex">
-                                <button class="btn btn-danger w-100 align-self-center">Descargar reporte</button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="bg-mix">
-                    <div class="container">
-                        <div class="card rounded-0">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-3 d-flex stat my-3">
-                                        <div class="mx-auto">
-                                            <h6 class="text-muted">Visitas mensuales</h6>
-                                            <h3 class="fw-bold">100</h3>
-                                            <h6 class="text-success fw-light"><i class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>50%</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 d-flex stat my-3">
-                                        <div class="mx-auto">
-                                            <h6 class="text-muted">Artículos escritos</h6>
-                                            <h3 class="fw-bold">467</h3>
-                                            <h6 class="text-success fw-light"><i class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>30%</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 d-flex stat my-3">
-                                        <div class="mx-auto">
-                                            <h6 class="text-muted">Artículos aprobados</h6>
-                                            <h3 class="fw-bold">432</h3>
-                                            <h6 class="text-success fw-light"><i class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>80%</h6>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 d-flex my-3">
-                                        <div class="mx-auto">
-                                            <h6 class="text-muted">Artículos corregidos</h6>
-                                            <h3 class="fw-bold">458</h3>
-                                            <h6 class="text-success fw-light"><i class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>10%</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
         </div>
-    </div>
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+    </section>
+    <section class="bg-gris">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 my-3">
+                    <div class="card rounded-0">
+                        <div class="card-header bg-light">
+                            <h6 class="fw-bold mb-0">Gráfica de visitas a sus artículos</h6>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 my-3">
+                    <div class="card rounded-0">
+                        <div class="card-header bg-light">
+                            <h6 class="fw-bold mb-0">Notificaciones</h6>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="d-flex border-bottom py-2">
+                                <div class="me-3 d-flex">
+                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-square-envelope"></i></h2>
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="d-inline-block mb-0">Nuevo Mensaje</h6><span
+                                        class="badge bg-danger ms-2">Importante</span>
+                                    <small class="d-block text-muted">De Federico Sutil</small>
+                                </div>
+                            </div>
+                            <div class="d-flex border-bottom py-2">
+                                <div class="me-3 d-flex">
+                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-thumbs-up"></i>
+                                    </h2>
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="d-inline-block mb-0">Artículo Aprobado</h6><span
+                                        class="badge bg-primary ms-2">¡Bien hecho!</span>
+                                    <small class="d-block text-muted">Tu artículo fue aprobado</small>
+                                </div>
+                            </div>
+                            <div class="d-flex border-bottom py-2">
+                                <div class="me-3 d-flex">
+                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-thumbs-down"></i>
+                                    </h2>
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="d-inline-block mb-0">Artículo Desaprobado</h6><span
+                                        class="badge bg-danger ms-2">Importante</span>
+                                    <small class="d-block text-muted">Tu artículo no logró ser
+                                        aprobado</small>
+                                </div>
+                            </div>
+                            <div class="d-flex border-bottom py-2 mb-3">
+                                <div class="me-3 d-flex">
+                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-square-pen"></i>
+                                    </h2>
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="d-inline-block mb-0">Corrección Necesaria</h6><span
+                                        class="badge bg-warning ms-2">Importante</span>
+                                    <small class="d-block text-muted">Se necesitan mejoras en tu
+                                        artículo</small>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger w-100">
+                                Ver todas las notificaciones
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock contenido %}
+{% block script_final %}
+{% endblock script_final %}
