@@ -1,8 +1,6 @@
-from email.policy import default
-from tkinter import CASCADE
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from django_fields import DefaultStaticImageField
+import datetime
 
 
 # Create your models here.
@@ -30,7 +28,6 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
-    
 class Regiones(models.Model):
     id_region = models.AutoField(primary_key=True)
     nombre_region = models.CharField(max_length=50)
@@ -38,13 +35,14 @@ class Regiones(models.Model):
         return self.nombre_region
 class Noticias(models.Model):
     id_noticia = models.AutoField(primary_key=True),
-    # id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
+    usuario = models.CharField(max_length=60,default='--')
+    #id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
     titulo = models.CharField(max_length=50)
     portada = models.ImageField(upload_to='fotos',null=True)
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
     contenido = models.TextField(null=False)
     etiquetas = models.CharField(max_length=150)
-    fecha = models.DateField(auto_now=True)
+    fecha = models.DateField(("Fecha"), default=datetime.date.today)
     ubicacion = models.ForeignKey(Regiones,on_delete=models.CASCADE)
     aprobada = models.BooleanField(default=False)
     comentario = models.TextField(default='--')
@@ -58,6 +56,15 @@ class Contacto(models.Model):
     email = models.CharField(max_length=100)
     telefono = PhoneNumberField(null=False, blank=False, unique=False,region='CL')
     mensaje = models.TextField(null=False)
-    archivo = models.FileField(upload_to='archivos_contacto',null=True)
+    archivo = models.FileField(upload_to='archivos_contacto',default='fotos/defecto.png')
+
     def __str__(self):
         return self.pnombre
+
+class Galeria(models.Model):
+    auto_inc = models.AutoField(primary_key=True)
+    imagen = models.ImageField(upload_to = 'galeria')
+    noticia = models.ForeignKey(Noticias, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'Número: '+str(self.auto_inc)

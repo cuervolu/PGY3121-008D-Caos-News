@@ -114,6 +114,7 @@ def escribir(request):
     contexto["u_items"] = ubicacion
     print('Prueba')
     if request.POST:
+        usuario = request.user.username #Recupero el nombre del usuario activo en el request
         titulo = request.POST.get("txtTitulo")
         portada = request.FILES.get("txtImagen")
         catego = request.POST.get("cboCategoria")
@@ -135,6 +136,7 @@ def escribir(request):
                 noticia.ubicacion = obj_ubi
                 noticia.contenido = contenido
                 noticia.tags = tags
+                noticia.usuario = usuario
                 noticia.save()
                 mensaje = "Grabo Noticia"
                 print(mensaje)
