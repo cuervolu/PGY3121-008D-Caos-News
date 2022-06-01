@@ -9,7 +9,6 @@ from django.contrib import messages
 # importar una librería decoradora , permite evitar el ingreso de usuarios a la página web
 from django.contrib.auth.decorators import login_required, permission_required
 
-
 # Create your views here.
 def index(request):
     return render(request, "index.html")
@@ -112,9 +111,7 @@ def escribir(request):
     contexto = {"items": categorias}
     ubicacion = Regiones.objects.all()  # Selecciono todas las regiones
     contexto["u_items"] = ubicacion
-    print('Prueba')
     if request.POST:
-        usuario = request.user.username #Recupero el nombre del usuario activo en el request
         titulo = request.POST.get("txtTitulo")
         portada = request.FILES.get("txtImagen")
         catego = request.POST.get("cboCategoria")
@@ -125,7 +122,7 @@ def escribir(request):
         obj_catego = Categoria.objects.get(nombre=catego)
         # seleccionar el registro completo de la ubicacion a buscar
         obj_ubi = Regiones.objects.get(nombre_region=ubi)
-        mensaje = ""
+        mensaje = "Hola"
         print(mensaje)
         try:
             noticia = Noticias()
@@ -135,14 +132,14 @@ def escribir(request):
                 noticia.categoria = obj_catego
                 noticia.ubicacion = obj_ubi
                 noticia.contenido = contenido
-                noticia.tags = tags
-                noticia.usuario = usuario
+                noticia.etiquetas = tags
                 noticia.save()
                 mensaje = "Grabo Noticia"
                 print(mensaje)
-        except:
+        except Exception as e:
                 mensaje = "No grabo noticia"
                 print(mensaje)
+                print(e)
         contexto["mensaje"] = mensaje
 
     return render(request, "escribir.html", contexto)

@@ -43,11 +43,7 @@ News {% endblock titulo %} {%block css %}
                 <div class="invalid-feedback">Porfavor, ingrese un mensaje.</div>
             </div>
             <div class="input-group">
-                <input type="file" class="form-control" id="txtFile" name="txtFile" aria-describedby="inputGroupFileAddon04"
-                    aria-label="Upload" />
-                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">
-                    Subir
-                </button>
+                <input type="file" class="form-control" id="txtFile" name="txtFile" accept="image/png, image/jpeg, image/jpg" />
             </div>
             <div class="col-md-12">
                 <button type="submit" id="submit" class="btn btn-primary">Enviar</button>

@@ -88,45 +88,6 @@ Formulario de Publicación de Noticias - Caos News
         </div>
     </form>
 </div>
-
-<div class="modals">
-    <div class="modal mConfirmacion fade " id="mConfirmacion" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">¿Está seguro de continuar?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Luego de enviar el artículo, no podrá editarlo.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Estoy seguro</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal mFinal fade" id="mFinal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">¡Enviado!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
     $("#submit").click(function () {
         var editorContent = tinyMCE.get('tinyeditor').getContent();
@@ -157,19 +118,42 @@ Formulario de Publicación de Noticias - Caos News
                                 event.stopPropagation()
                             }
                             form.classList.add('was-validated')
-                                $.ajax({
-                                    type: "POST",
-                                    url: "{% url 'escr' %}",
-                                    enctype:"multipart/form-data",
-                                    data: $("#formulario").serialize(),
-                                    success: function (data) {
-                                        $("#mConfirmacion").html(data);
-                                        $("#mConfirmacion").modal("show");
-                                        event.preventDefault()
-                                        form.classList.add('was-validated')
+                            if (form.checkValidity()) {
+                                Swal.fire({
+                                    title: '¿Está seguro de continuar?',
+                                    text: "Luego de enviar el artículo, no podrá editarlo.",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Estoy seguro'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "{% url 'escr' %}",
+                                            enctype: "multipart/form-data",
+                                            data: $("#formulario").serialize(),
+                                            success: function (data) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: '¡Enviado!',
+                                                    text: "Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.",
+                                                    showConfirmButton: false,
+
+                                                })
+                                            }
+                                        }).then(function () {
+                                            event.preventDefault()
+                                            event.stopPropagation()
+                                            form.classList.add('was-validated')
+                                            location.reload(true);
+                                            console.log(data)
+                                        })
                                     }
                                 });
-                            console.log('was validated ok')
+                                console.log(data)
+                            }
                         }, false)
                     })
             })()

@@ -38,7 +38,7 @@ class Noticias(models.Model):
     usuario = models.CharField(max_length=60,default='--')
     #id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
     titulo = models.CharField(max_length=50)
-    portada = models.ImageField(upload_to='fotos',null=True)
+    portada = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=False,default='fotos/defecto.png')
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
     contenido = models.TextField(null=False)
     etiquetas = models.CharField(max_length=150)
@@ -56,7 +56,7 @@ class Contacto(models.Model):
     email = models.CharField(max_length=100)
     telefono = PhoneNumberField(null=False, blank=False, unique=False,region='CL')
     mensaje = models.TextField(null=False)
-    archivo = models.FileField(upload_to='archivos_contacto',default='fotos/defecto.png')
+    archivo = models.ImageField(upload_to='archivos_contacto/%Y/%m/%d/',default='fotos/defecto.png')
 
     def __str__(self):
         return self.pnombre
