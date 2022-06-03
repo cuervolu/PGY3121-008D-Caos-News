@@ -1,6 +1,7 @@
+from multiprocessing import context
 from django.shortcuts import render
 # incorporar el modelo de Periodista,Area,Categoría
-from .models import Periodista, Area, Categoria, Noticias, Regiones, Contacto
+from .models import *
 # importar modelo de tablas del User
 from django.contrib.auth.models import User
 # importar librerias que validan el ingreso o login a una pagina
@@ -9,10 +10,21 @@ from django.contrib import messages
 # importar una librería decoradora , permite evitar el ingreso de usuarios a la página web
 from django.contrib.auth.decorators import login_required, permission_required
 
-# Create your views here.
+# Create your views here
+usu = ''
+cantidad = 0
+
+def cantidad_no_publicados(usuario):
+    cantidad = Noticias.objects.filter(usuario=usuario, publicado=False).count()
+    return cantidad
+
 def index(request):
     return render(request, "index.html")
 
+def galeria (request):
+    noticias  = Noticias.objects.filter(aprobada=True)
+    contexto = {"noticias": noticias} 
+    return render(request, "galeria.html",contexto) 
 
 def contacto(request):
     mensaje = {"msg": ""}
@@ -102,11 +114,16 @@ def cerrar_sesion(request):
 
 @login_required(login_url='/login/')
 def panel(request):
-    return render(request, "panel.html")
+    usu = request.user.username # recuperar nombre de usuario
+    noticias = Noticias.objects.filter(usuario=usu)
+    cantidad = cantidad_no_publicados(usu)
+    contexto = {"noticias": noticias, "cantidad": cantidad}
+    return render(request, "panel.html",contexto)
 
 
 @login_required(login_url='/login/')
 def escribir(request):
+    usu = request.user.username # recuperrar nombre de usuario
     categorias = Categoria.objects.all()  # Selecciono todos los registros
     contexto = {"items": categorias}
     ubicacion = Regiones.objects.all()  # Selecciono todas las regiones
@@ -126,6 +143,7 @@ def escribir(request):
         print(mensaje)
         try:
             noticia = Noticias()
+            noticia.usuario = usu
             noticia.titulo = titulo
             if portada is not None:
                 noticia.portada = portada

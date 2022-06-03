@@ -90,7 +90,7 @@ Formulario de Publicación de Noticias - Caos News
 </div>
 <script>
     $("#submit").click(function () {
-        var editorContent = tinyMCE.get('tinyeditor').getContent();
+        var editorContent = tinyMCE.get('tinyeditor').getContent()({format : 'html'});
         if (editorContent == '' || editorContent <= 10) {
             Swal.fire({
                 title: 'Error',

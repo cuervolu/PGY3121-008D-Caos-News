@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+{%load static %}
+{% block titulo %}
+Últimas noticias de Chile y el mundo - Caos News
+{% endblock titulo%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css %}
+{% block contenido %}
+
+<div class="container border border-top-0">
+    <nav class="my-3"
+        style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+        aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'indx' %}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Lo Último</li>
+        </ol>
+    </nav>
+    <h1 class="mb-5 h2 text-center fw-bolder text-danger">Lo Último en Caos News</h1>
+    <section>
+        {% for reg in noticias %}
+        <div class="row justify-content-center "
+            style="padding-top: 20px; padding-bottom: 50px; margin-left: 5%; margin-right: 5%;">
+            <div class="card mb-3 border-light" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-md-4 px-0">
+                        <img src="{{reg.portada.url}}" class="img-fluid rounded-start" style="height: 100%; width: 100%; object-fit: cover;" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ reg.titulo }}</h5>
+                            {% language 'es' %}
+                            <p class="card-text"><small class="text-muted">{{ reg.fecha }}</small></p>
+                            {% endlanguage %}
+                            <p class="card-text">{{ reg.contenido|truncatechars:450| safe }}</p>
+                            <br>
+                            <a href="#" class="btn btn-primary my-2">Leer más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+
+
+    </section>
+
+
+</div>
+
+
+
+{% endblock contenido %}

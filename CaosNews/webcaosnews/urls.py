@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index, contacto, panel, signup,deportes,login,terms,politica,nacional,mundo,escribir,cerrar_sesion
+from .views import *
 
 urlpatterns = [
     path('', index,name = 'indx'),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('cerrar/',cerrar_sesion,name='cerrar'),
     path('accounts/', include('allauth.urls')),
     path('panel/',panel,name='panel'),
+    path('lo-ultimo/',galeria,name='lUT'),
 ]

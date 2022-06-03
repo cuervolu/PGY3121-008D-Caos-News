@@ -1,7 +1,7 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 import datetime
-
+# from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 # Create your models here.
 class Area(models.Model):
@@ -15,12 +15,12 @@ class Periodista(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     usuario = models.CharField(max_length=50)
-    email = models.EmailField()
+    email = models.EmailField(max_length=255, unique=True,verbose_name='email address',)
     telefono = PhoneNumberField(null=False, blank=False, unique=True,region='CL')
     area = models.ForeignKey(Area,on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='fotos',null=True, default='fotos/default_photo.png')
     def __str__(self):
-        return self.nombre
+        return self.nombre + " " + self.apellido
     
 class Categoria(models.Model):
     id_categoria = models.AutoField(primary_key=True),
@@ -37,7 +37,7 @@ class Noticias(models.Model):
     id_noticia = models.AutoField(primary_key=True),
     usuario = models.CharField(max_length=60,default='--')
     #id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
-    titulo = models.CharField(max_length=50)
+    titulo = models.CharField(max_length=100)
     portada = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=False,default='fotos/defecto.png')
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
     contenido = models.TextField(null=False)
