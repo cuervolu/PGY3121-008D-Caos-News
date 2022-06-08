@@ -31,10 +31,12 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ reg.titulo }}</h5>
+                            <div style="font-weight: 200;">
                             {% language 'es' %}
                             <p class="card-text"><small class="text-muted">{{ reg.fecha }}</small></p>
                             {% endlanguage %}
-                            <p class="card-text">{{ reg.contenido|truncatechars:450| safe }}</p>
+                            <p class="card-text">{{ reg.contenido|truncatechars:420| safe }}</p>
+                            </div>
                             <br>
                             <a href="#" class="btn btn-primary my-2">Leer más</a>
                         </div>

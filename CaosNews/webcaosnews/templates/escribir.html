@@ -8,161 +8,104 @@ Formulario de Publicación de Noticias - Caos News
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 {% endblock css%}
 {% block script %}
 <!-- Tiny MC -->
 <script src="https://cdn.tiny.cloud/1/8l8m0j6ztkpaf38bwic7ipvi8ioyez7mb801f53jk8ik7ygw/tinymce/6/tinymce.min.js"
     referrerpolicy="origin"></script>
+<script>
+    function agregarNoticia(id) {
+        Swal.fire({
+            title: '¿Está seguro de continuar?',
+            text: "Luego de enviar el artículo, no podrá editarlo.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Estoy seguro'
+        })
+    }
+</script>
 {% endblock script %}
 
 
 {% block contenido %}
+{% load crispy_forms_tags %}
 <!-- Contenido -->
 <div class="container border border-bottom-0">
+    <div class="top p-4">
+        <h1 class="text-center titulo-web shadow">Escritura de Artículo</h1>
+    </div>
     <form action="{% url 'escr' %}" name="formulario" id="formulario" method="post" enctype="multipart/form-data"
         class="needs-validation" novalidate>
         {% csrf_token %}
-        <div class="top p-4">
-            <h1 class="text-center titulo-web shadow">Escritura de Artículo</h1>
-        </div>
-        <!-- Formulario -->
-        <div class="form-group">
-            <div class="mb-1">
-                <label for="exampleFormControlInput1" class="form-label">Título</label>
-                <input type="text" name="txtTitulo" class="form-control" id="titulo" required>
-            </div>
-            <div class="mb-3">
-                <label for="formFile" class="form-label">Imagen de Portada</label>
-                <!--Para aceptar todo tipo de imagenes: accept="image/*"-->
-                <input class="form-control" name="txtImagen" type="file" accept="image/png, image/jpeg, image/jpg"
-                    id="txtImagen" required>
-            </div>
-            <!-- Selectores -->
-            <div class="row">
-                <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                    <select class="form-select" name="cboCategoria" id="cboCategoria" required
-                        aria-label="select example" id="categoria">
-                        <option value="">Categoría</option>
-                        {% for reg in items %}
-                        <option value="{{reg.nombre}}">{{reg.nombre}}</option>
-                        {% endfor %}
-                    </select>
-                    <div class="invalid-feedback">Escoge una categoría</div>
-                </div>
-                <!-- Ubicación -->
-                <div class="col-sm-6 col-md-5 col-lg-2" style="margin-bottom: 20px;">
-                    <select class="form-select" name="cboUbicacion" id="cboUbicacion" required
-                        aria-label="select example" id="ubicacion">
-                        <option value="">Ubicación</option>
-                        {% for ub in u_items %}
-                        <option value="{{ub.nombre_region}}">{{ub.nombre_region}}</option>
-                        {% endfor %}
-                    </select>
-                    <div class="invalid-feedback">Escoge una ubicación</div>
-                </div>
-            </div>
-            <!-- TinyMCE -->
-            <div>
-                <textarea id="tinyeditor" name="txtNoticia" placeholder="Inserte su texto aquí...">
-                </textarea>
-            </div>
-            <!-- Fin TinyMCE -->
-        </div>
-        <div class="mb-3 py-3">
-            <div class="input-group has-validation">
-                <span class="input-group-text" id="inputGroupPrepend">#</span>
-                <input type="text" class="form-control" name="txtTags" id="txtTags" aria-describedby="inputGroupPrepend"
-                    required>
-                <div class="invalid-feedback">
-                    Por favor, añada etiquetas.
-                </div>
-            </div>
-        </div>
-        <!-- Selectores -->
         <div class="row justify-content-end" style="margin-bottom: 40px;">
-            <div class="row justify-content-end py-3">
-                <div class="col-sm-6 col-md-5 col-lg-1">
-                    <button type="submit" id="submit" class="btn btn-danger">Subir</button>
+            <div class="form-group">
+                <div class="mb-1">
+                    {{ form.titulo | as_crispy_field }}
                 </div>
+                <div class="mb-3 my-4">
+                    {{ form.portada | as_crispy_field}}
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        {{ form.categoria | as_crispy_field}}
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        {{ form.ubicacion | as_crispy_field}}
+                    </div>
+                </div>
+                <div class="my-4">
+                    {{ form.contenido | as_crispy_field}}
+                </div>
+                <div class="mb-3 pt-2">
+                    {{ form.etiquetas | as_crispy_field}}
+
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-sm-6 col-md-5 col-lg-1 pb-3">
+                <button  id="submit" class="btn btn-danger">Subir</button>
             </div>
         </div>
     </form>
+
 </div>
+
+{% if messages %}
+{% for m in messages %}
 <script>
-    $("#submit").click(function () {
-        var editorContent = tinyMCE.get('tinyeditor').getContent()({format : 'html'});
-        if (editorContent == '' || editorContent <= 10) {
-            Swal.fire({
-                title: 'Error',
-                text: 'El contenido del artículo debe ser mayor a 10 caracteres',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            })
-            tinyMCE.activeEditor.focus();
-            return false;
-        }
-        else {
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (function () {
-                'use strict'
-
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.querySelectorAll('.needs-validation')
-
-                // Loop over them and prevent submission
-                Array.prototype.slice.call(forms)
-                    .forEach(function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (!form.checkValidity()) {
-                                event.preventDefault()
-                                event.stopPropagation()
-                            }
-                            form.classList.add('was-validated')
-                            if (form.checkValidity()) {
-                                Swal.fire({
-                                    title: '¿Está seguro de continuar?',
-                                    text: "Luego de enviar el artículo, no podrá editarlo.",
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Estoy seguro'
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "{% url 'escr' %}",
-                                            enctype: "multipart/form-data",
-                                            data: $("#formulario").serialize(),
-                                            success: function (data) {
-                                                Swal.fire({
-                                                    icon: 'success',
-                                                    title: '¡Enviado!',
-                                                    text: "Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.",
-                                                    showConfirmButton: false,
-
-                                                })
-                                            }
-                                        }).then(function () {
-                                            event.preventDefault()
-                                            event.stopPropagation()
-                                            form.classList.add('was-validated')
-                                            location.reload(true);
-                                            console.log(data)
-                                        })
-                                    }
-                                });
-                                console.log(data)
-                            }
-                        }, false)
-                    })
-            })()
-        }
-    })
+    Swal.fire({
+            title: '¿Está seguro de continuar?',
+            text: "Luego de enviar el artículo, no podrá editarlo.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Estoy seguro'
+        }).then(function(result){
+            if(result.isConfirmed){
+                window.location.href = "{% url 'escr' %}";
+            }
+        })
 </script>
+{% endfor %}
+{% endif %}
 {% endblock contenido %}
 
 {% block script_final %}
-
+<!-- Optional Javascript -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
 <script src="{% static 'js/escribir.js' %}"></script>
 {% endblock script_final %}

@@ -2,7 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 import datetime
 # from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
-
+from tinymce import models as tinymce_models
 # Create your models here.
 class Area(models.Model):
     id_area = models.AutoField(primary_key=True)
@@ -40,10 +40,10 @@ class Noticias(models.Model):
     titulo = models.CharField(max_length=100)
     portada = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=False,default='fotos/defecto.png')
     categoria = models.ForeignKey(Categoria,on_delete=models.CASCADE)
-    contenido = models.TextField(null=False)
+    ubicacion = models.ForeignKey(Regiones,on_delete=models.CASCADE)
+    contenido = tinymce_models.HTMLField(null=False)
     etiquetas = models.CharField(max_length=150)
     fecha = models.DateField(("Fecha"), default=datetime.date.today)
-    ubicacion = models.ForeignKey(Regiones,on_delete=models.CASCADE)
     aprobada = models.BooleanField(default=False)
     comentario = models.TextField(default='--')
     def __str__(self):
@@ -53,13 +53,13 @@ class Contacto(models.Model):
     id_contacto = models.AutoField(primary_key=True),
     pnombre = models.CharField(max_length=50)
     appaterno = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
+    email = models.EmailField()
     telefono = PhoneNumberField(null=False, blank=False, unique=False,region='CL')
     mensaje = models.TextField(null=False)
     archivo = models.ImageField(upload_to='archivos_contacto/%Y/%m/%d/',default='fotos/defecto.png')
 
     def __str__(self):
-        return self.pnombre
+        return self.pnombre + " " + self.appaterno
 
 class Galeria(models.Model):
     auto_inc = models.AutoField(primary_key=True)

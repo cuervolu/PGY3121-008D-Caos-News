@@ -1,0 +1,9 @@
+pillow
+django-admin-interface
+django-tinymce
+django-crispy-forms
+django-phonenumber_field
+django-allauth
+django-alluth
+
+

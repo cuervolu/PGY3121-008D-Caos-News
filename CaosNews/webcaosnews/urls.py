@@ -17,4 +17,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('panel/',panel,name='panel'),
     path('lo-ultimo/',galeria,name='lUT'),
+    path('tinymce/',include('tinymce.urls')),
 ]

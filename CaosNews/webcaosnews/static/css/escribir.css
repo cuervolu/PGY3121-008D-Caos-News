@@ -26,3 +26,6 @@ a {
     border-radius: 0.5rem;
     padding: 1rem;
 }
+.asteriskField {
+    display: none;
+}
