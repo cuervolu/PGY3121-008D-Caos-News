@@ -47,4 +47,6 @@ a {
     background-color: #ea4335 !important;
   } 
 
-  
+.asteriskField {
+    display: none;
+}

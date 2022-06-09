@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 # incorporar el modelo de Periodista,Area,Categoría
 from .models import *
 # importar modelo de tablas del User
@@ -15,42 +15,37 @@ from django.contrib import messages
 usu = ''
 cantidad = 0
 
+
 def cantidad_no_publicados(usuario):
-    cantidad = Noticias.objects.filter(usuario=usuario, publicado=False).count()
+    cantidad = Noticias.objects.filter(
+        usuario=usuario, publicado=False).count()
     return cantidad
+
 
 def index(request):
     return render(request, "index.html")
 
-def galeria (request):
-    noticias  = Noticias.objects.filter(aprobada=True).order_by('-fecha')
-    contexto = {"noticias": noticias} 
-    return render(request, "galeria.html",contexto) 
+
+def galeria(request):
+    noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')
+    contexto = {"noticias": noticias}
+    return render(request, "galeria.html", contexto)
+
 
 def contacto(request):
-    mensaje = {"msg": ""}
-    if request.POST:
-        nombre = request.POST.get("txtFirstName")
-        apellido = request.POST.get("txtLastName")
-        email = request.POST.get("txtEmail")
-        telefono = request.POST.get("txtPhone")
-        comentario = request.POST.get("txtComments")
-        archivo = request.FILES.get("txtFile")
-        try: 
-            contact = Contacto()
-            contact.pnombre = nombre
-            contact.appaterno = apellido
-            contact.email = email
-            contact.telefono = telefono
-            contact.mensaje = comentario
-            contact.archivo = archivo
-            contact.save()
-            mensaje = {"msg": "Mensaje enviado correctamente"}
-            print(mensaje)
-        except Exception as e:
-            mensaje = {"msg": "Error al enviar el mensaje", "error": e}
-            print(mensaje)
-    return render(request, "contacto.html", mensaje)
+    data = {
+        'form': ContactoForm(),
+    }
+    if request.method == 'POST':
+        formulario = ContactoForm(data=request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(
+                request, 'Tu mensaje fue enviado. Te contactaremos a la brevedad')
+        else:
+            data['form'] = formulario
+
+    return render(request, "contacto.html", data)
 
 
 def deportes(request):
@@ -115,11 +110,11 @@ def cerrar_sesion(request):
 
 @login_required(login_url='/login/')
 def panel(request):
-    usu = request.user.username # recuperar nombre de usuario
+    usu = request.user.username  # recuperar nombre de usuario
     noticias = Noticias.objects.filter(usuario=usu)
     cantidad = cantidad_no_publicados(usu)
     contexto = {"noticias": noticias, "cantidad": cantidad}
-    return render(request, "panel.html",contexto)
+    return render(request, "panel.html", contexto)
 
 
 @login_required(login_url='/login/')
@@ -131,8 +126,9 @@ def escribir(request):
         formulario = EscribirForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            messages.success(request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.')
+            messages.success(
+                request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.')
         else:
             data['form'] = formulario
 
-    return render(request, "escribir.html",data)
+    return render(request, "escribir.html", data)

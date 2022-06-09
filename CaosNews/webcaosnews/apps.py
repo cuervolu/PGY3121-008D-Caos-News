@@ -4,3 +4,4 @@ from django.apps import AppConfig
 class WebcaosnewsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'webcaosnews'
+    verbose_name = 'Caos News'
