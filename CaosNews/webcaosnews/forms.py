@@ -22,27 +22,36 @@ class EscribirForm(forms.ModelForm):
         max_length=100,
         required=True,
         label='Titulo',
+        error_messages={'required': 'El titulo es requerido', 'min_length': 'El titulo debe tener al menos 10 caracteres', 'max_length': 'El titulo debe tener como máximo 100 caracteres'},
     )
     
     portada = forms.ImageField(
         label='Imagen de Portada',
-        widget=forms.FileInput(attrs={'class': 'form-control-file','accept':'image/png, image/jpeg, image/jpg'}),	
+        widget=forms.FileInput(attrs={'class': 'form-control-file','accept':'image/png, image/jpeg, image/jpg'}),
+        error_messages={'required': 'La imagen de portada es requerida'},	
     )    
     
     categoria = forms.ModelChoiceField(
         label='',
         empty_label='Categoría', 
         queryset=Categoria.objects, 
-        required=True
+        required=True,
+        error_messages={'required': 'La categoría es requerida'},	
         )
+    
     ubicacion = forms.ModelChoiceField(
         label='',
         empty_label='Ubicación',
         queryset=Regiones.objects, 
-        required=True)
+        required=True,
+        error_messages={'required': 'La ubicación es requerida'},	
+        )
+    
     contenido = forms.CharField(
+        min_length=10,
         label='',
-        widget=TinyMCE(attrs={'cols': 80, 'rows': 30,'placeholder':'Escribe aquí tu noticia'}),
+        widget=TinyMCE(attrs={'cols': 80, 'rows': 30,'placeholder':'Escribe aquí tu noticia','minlength':'10'}),
+        error_messages={'required': 'El contenido es requerido', 'min_length': 'El contenido debe tener al menos 10 caracteres'},
     )
     class Meta:
         model = Noticias
