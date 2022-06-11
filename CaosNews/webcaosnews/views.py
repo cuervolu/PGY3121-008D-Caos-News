@@ -23,7 +23,9 @@ def cantidad_no_publicados(usuario):
 
 
 def index(request):
-    return render(request, "index.html")
+    noticiasN = Noticias.objects.filter(categoria__nombre = 'Nacional' ,aprobada=True).order_by('-fecha')
+    contexto = {"noticias": noticiasN}
+    return render(request, "index.html",contexto)
 
 
 def galeria(request):
@@ -120,15 +122,22 @@ def panel(request):
 @login_required(login_url='/login/')
 def escribir(request):
     data = {
-        'form': EscribirForm(),
+        'form': EscribirForm(initial={'usuario':request.user.username}),
     }
     if request.method == 'POST':
         formulario = EscribirForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
-            formulario.save()
+            instance=formulario.save(commit=False)
+            instance.usuario=request.user
+            instance.save()
+            # formulario.save()
             messages.success(
-                request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.')
+                request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.', extra_tags='alerta')
         else:
+            print('usuario: ', request.user)
+            print(formulario.errors)
+            messages.error(
+                request, 'Ha habido un error.', extra_tags='fallo')
             data['form'] = formulario
 
     return render(request, "escribir.html", data)

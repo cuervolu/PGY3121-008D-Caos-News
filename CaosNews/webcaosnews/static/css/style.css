@@ -5,7 +5,9 @@
 * {
     font-family: "Fira Sans", sans-serif;
 }
-
+body{
+  background-color: #F8F9FA !important;
+}
 #carouselExampleCaptions .carousel-item img {
     margin-top: 15px;
     object-fit: cover;

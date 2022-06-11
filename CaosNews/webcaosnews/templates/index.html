@@ -58,50 +58,29 @@ Caos News
   </div>
 </div>
 <div class="container border border-top-0 py-3" id="contenido">
-<div class="row justify-content-center">
-  <div class="col-sm-6 col-md-6 col-lg-4">
-  <div class="btn btn-danger" id="DolarO"></div>
-</div>
-</div>
+  <div class="row justify-content-center">
+    <div class="col-sm-6 col-md-6 col-lg-4">
+      <div class="btn btn-danger" id="DolarO"></div>
+    </div>
+  </div>
 </div>
 <!-- Cards -->
 <div class="container border border-top-0" id="contenido">
   <h2 class="h2 text-uppercase text-decoration-underline text-center p-3">Nacional</h2>
   <div class="row justify-content-center"
-    style="padding-top: 20px; padding-bottom: 50px; margin-left: 5%; margin-right: 5%;"">
-      <div class=" col-12 col-sm-6 col-lg-4">
-    <div class="card h-100" style="width: 20rem;">
-      <img src="{% static 'img/accidente.jpg' %}" class="card-img-top" alt="...">
+    style="padding-top: 20px; padding-bottom: 50px; margin-left: 50px; margin-right: 50px;">
+  {% for reg in noticias %}
+  <div class="col-12 col-sm-6 col-lg-3">
+    <div class="card h-100 border-0" style="width: 15rem;">
+      <img src="{{reg.portada.url}}" class="card-img-top" alt="..." style="height: 150px;">
       <div class="card-body">
-        <h5 class="card-title">Joven hallado muerto en Coronel <span class="badge bg-primary">Tendencia</span></h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="{% url 'nac' %}" class="btn btn-primary">Ver más</a>
+        <h5 class="card-title" style="font-size:15px;">{{ reg.titulo }}<span class="badge bg-primary ms-2">Tendencia</span></h5>
+        <a href="{% url 'nac' %}" class="btn btn-danger">Ver más</a>
       </div>
     </div>
   </div>
-  <div class="col-12 col-sm-6 col-lg-4">
-    <div class="card h-100" style="width: 20rem;">
-      <img src="{% static 'img/politico.jpg' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="btn btn-primary">Ver más</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-sm-6 col-lg-4">
-    <div class="card h-100" style="width: 20rem;">
-      <img src="{% static 'img/pan y carnes.jpg' %}" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-        <a href="#" class="btn btn-primary">Ver más</a>
-      </div>
-    </div>
-  </div>
+  {% endfor %}
+  
 
 </div>
 
@@ -109,10 +88,10 @@ Caos News
 <h2 class="h2 text-uppercase text-decoration-underline text-center p-3">Deportes</h2>
 <div class="row justify-content-center"
   style="padding-top: 20px; padding-bottom: 50px; margin-left: 5%; margin-right: 5%;">
-  <div class="card" style="max-width: 100%;">
+  <div class="card border-0 rounded-0" style="max-width: 100%;">
     <div class="row g-0">
       <div class="col-sm-5">
-        <img src="{% static 'img/deportes.jpg' %}" class="img-fluid rounded-start" alt="...">
+        <img src="{% static 'img/deportes.jpg' %}" class="img-fluid rounded-0" alt="...">
       </div>
       <div class="col-sm-7">
         <div class="card-body">

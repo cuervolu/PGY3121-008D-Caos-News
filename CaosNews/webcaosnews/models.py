@@ -3,6 +3,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 import datetime
 # from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from tinymce import models as tinymce_models
+from django.contrib.auth.models import User
 # Create your models here.
 class Area(models.Model):
     id_area = models.AutoField(primary_key=True)
