@@ -61,6 +61,7 @@ class EscribirForm(forms.ModelForm):
                         'min_length': 'El contenido debe tener al menos 10 caracteres'},
     )
     usuario = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'True'}))
+    autor = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'True'}))
     class Meta:
         model = Noticias
         fields = ['titulo', 'portada', 'categoria',

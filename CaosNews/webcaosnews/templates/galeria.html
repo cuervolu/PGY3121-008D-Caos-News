@@ -19,7 +19,7 @@
         </ol>
     </nav>
     <h1 class="mb-5 h2 text-center fw-bolder text-danger">Lo Último en Caos News</h1>
-    <section>
+    <section id="hCard">
         {% for reg in noticias %}
         <div class="row justify-content-center "
             style="padding-top: 20px; padding-bottom: 50px; margin-left: 5%; margin-right: 5%;">
@@ -31,12 +31,12 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">{{ reg.titulo }}</h5>
-                            <div style="font-weight: 200;">
+                         
                             {% language 'es' %}
                             <p class="card-text"><small class="text-muted">{{ reg.fecha }}</small></p>
                             {% endlanguage %}
-                            <p class="card-text">{{ reg.contenido|truncatechars:420| safe }}</p>
-                            </div>
+                            <p class="card-text">{{ reg.contenido|truncatechars:320| safe }}</p>
+                            
                             <br>
                             <a href="#" class="btn btn-primary my-2">Leer más</a>
                         </div>
@@ -53,6 +53,9 @@
 
 </div>
 
-
+<script>
+    const card = document.getElementById('hCard');
+    card.innerHTML = card.innerHTML.replace(/\<strong>/g, '').replace(/\<\/strong>/g, '').replace(/\<h2>/g, '').replace(/\<\/h2>/g, '');
+  </script>
 
 {% endblock contenido %}

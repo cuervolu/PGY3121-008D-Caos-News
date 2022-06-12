@@ -1,4 +1,6 @@
-from django.shortcuts import redirect, render
+from itertools import count
+from operator import ge
+from django.shortcuts import redirect, render, get_object_or_404
 # incorporar el modelo de Periodista,Area,Categoría
 from .models import *
 # importar modelo de tablas del User
@@ -15,16 +17,17 @@ from django.contrib import messages
 usu = ''
 cantidad = 0
 
-
 def cantidad_no_publicados(usuario):
     cantidad = Noticias.objects.filter(
-        usuario=usuario, publicado=False).count()
+        usuario=usuario, aprobada=False).count()
     return cantidad
 
 
 def index(request):
+    noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')
     noticiasN = Noticias.objects.filter(categoria__nombre = 'Nacional' ,aprobada=True).order_by('-fecha')
-    contexto = {"noticias": noticiasN}
+    notDeporte = Noticias.objects.get(categoria__nombre = 'Deportes' ,aprobada=True)
+    contexto = {"noticiasN": noticiasN, "noticias": noticias, "notDeporte": notDeporte}
     return render(request, "index.html",contexto)
 
 
@@ -113,13 +116,51 @@ def cerrar_sesion(request):
 @login_required(login_url='/login/')
 def panel(request):
     usu = request.user.username  # recuperar nombre de usuario
-    noticias = Noticias.objects.filter(usuario=usu)
+    noticias = Noticias.objects.filter(usuario=usu, aprobada=False).order_by('-fecha')
+    cantidadNoticias = Noticias.objects.filter(usuario=usu).count()
+    cantidadNoticiasAprobadas = Noticias.objects.filter(usuario=usu, aprobada=True).count()
     cantidad = cantidad_no_publicados(usu)
-    contexto = {"noticias": noticias, "cantidad": cantidad}
-    return render(request, "panel.html", contexto)
-
+    coeficiente = cantidadNoticiasAprobadas / cantidadNoticias
+    porcentaje = round(coeficiente * 100)
+    contexto = {"noticias": noticias, "cantidad": cantidad, "cantidadNoticias": cantidadNoticias, "cantidadNoticiasAprobadas": cantidadNoticiasAprobadas, "porcentaje": porcentaje}
+    return render(request, "panel/panel.html", contexto)
 
 @login_required(login_url='/login/')
+def listar(request):
+    noticias = Noticias.objects.filter(usuario= request.user).order_by('-fecha')
+    data = {
+        'noticias': noticias,
+    }
+    return render(request, "panel/listado.html",data)
+
+@login_required(login_url='/login/')
+def modificarNoticia(request, id):
+    Noticia = get_object_or_404(Noticias, id = id)
+    data = {
+        'form' : EscribirForm(instance=Noticia),
+    }
+    if request.method == 'POST':
+        formulario = EscribirForm(data=request.POST, files=request.FILES, instance=Noticia)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(
+                request, 'Tu artículo ha sido modificado', extra_tags='alerta')
+            return redirect(to='panel')
+        else:
+            print(formulario.errors)
+            messages.error(
+                request, 'Ha habido un error.', extra_tags='fallo')
+            data['form'] = formulario
+    return render(request, "panel/modificarNoticia.html",data)
+
+@login_required(login_url='/login/')
+def eliminarNoticia(request, id):
+     Noticia = get_object_or_404(Noticias, id = id)
+     Noticia.delete()
+     messages.success(
+         request, 'Tu artículo ha sido eliminado', extra_tags='alerta')
+     return redirect(to='list')
+ 
 def escribir(request):
     data = {
         'form': EscribirForm(initial={'usuario':request.user.username}),
@@ -129,6 +170,7 @@ def escribir(request):
         if formulario.is_valid():
             instance=formulario.save(commit=False)
             instance.usuario=request.user
+            instance.autor=request.user.first_name + " " + request.user.last_name
             instance.save()
             # formulario.save()
             messages.success(

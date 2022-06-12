@@ -1,9 +1,12 @@
-{% extends "basePanel.html" %}
+{% extends "panel/basePanel.html" %}
 {%load static %}
 {% block titulo %}
 Panel Administrativo - Caos News
 {% endblock titulo%}
 {% block css %}
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
 {% endblock css %}
 {% block contenido %}
 <!-- Contenido -->
@@ -37,22 +40,22 @@ Panel Administrativo - Caos News
                         <div class="col-lg-3 col-md-6 d-flex stat my-3">
                             <div class="mx-auto">
                                 <h6 class="text-muted">Artículos escritos</h6>
-                                <h3 class="fw-bold">467</h3>
-                                <h6 class="text-success fw-light"><i
-                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>30%</h6>
+                                <h3 class="fw-bold">{{cantidadNoticias}}</h3>
+                                {% comment %} <h6 class="text-success fw-light"><i
+                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>30%</h6> {% endcomment %}
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 d-flex stat my-3">
                             <div class="mx-auto">
                                 <h6 class="text-muted">Artículos aprobados</h6>
-                                <h3 class="fw-bold">432</h3>
+                                <h3 class="fw-bold">{{cantidadNoticiasAprobadas}}</h3>
                                 <h6 class="text-success fw-light"><i
-                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>80%</h6>
+                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>{{porcentaje}}%</h6>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 d-flex my-3">
                             <div class="mx-auto">
-                                <h6 class="text-muted">Artículos corregidos</h6>
+                                <h6 class="text-muted">Artículos Destacdos</h6>
                                 <h3 class="fw-bold">458</h3>
                                 <h6 class="text-success fw-light"><i
                                         class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>10%</h6>
@@ -135,8 +138,104 @@ Panel Administrativo - Caos News
                 </div>
             </div>
         </div>
+
+        <!-- Artículos -->
+        <div class="articulos">
+            <div class="container">
+                <h6 class="card-header text-center mb-4 fw-bold">Artículos No Publicados</h6>
+                <div class="owl-carousel owl-theme">
+                    {% for reg in noticias%}
+                    <div class="item">
+                        <div class="card">
+                            <img src="{{reg.portada.url}}" alt="" class="img-responsive">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-text fs-6 text fw-normal text-center">{{reg.titulo}}</h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div></div>
+                </div>
+            </div>
+    
+        </div>
+
     </section>
+
+    
+
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(".owl-carousel").owlCarousel({
+            merge:true,
+            loop: true,
+            margin: 1,
+            nav: false,
+            center: true,
+            autoplay: true,
+            autoplayTimeout: 1000,
+            autoplayHoverPause: true,
+            stagePadding: 50,
+            responsive: {
+                0: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            }
+        });
+    });
+</script>
 {% endblock contenido %}
 {% block script_final %}
+<script>
+    const labels = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+    ];
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Visitas',
+            backgroundColor: [
+                '#DC3545',
+                '#DC3545',
+                '#DC3545',
+                '#DC3545',
+                '#EA868F',
+                '#DC3545',
+            ],
+            borderColor: 'rgb(255, 99, 132)',
+            data: [50, 100, 105, 125, 107, 180, 200],
+        }]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            font: {
+                family: "Fira Sans",
+            },
+        }
+    };
+</script>
+<script>
+    const myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
 {% endblock script_final %}

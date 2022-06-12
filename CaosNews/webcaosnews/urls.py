@@ -18,4 +18,7 @@ urlpatterns = [
     path('panel/',panel,name='panel'),
     path('lo-ultimo/',galeria,name='lUT'),
     path('tinymce/',include('tinymce.urls')),
+    path('listar/',listar,name='list'),
+    path('modificar-noticia/<id>/',modificarNoticia,name='modNot'),
+    path('eliminar-noticia/<id>/',eliminarNoticia,name='elimNot'),
 ]

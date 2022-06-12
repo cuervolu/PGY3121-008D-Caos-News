@@ -37,6 +37,7 @@ class Regiones(models.Model):
 class Noticias(models.Model):
     id_noticia = models.AutoField(primary_key=True),
     usuario = models.CharField(max_length=60,default='--')
+    autor = models.CharField(max_length=80,default='--')
     #id_periodista = models.ForeignKey(Periodista,on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
     portada = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=False,default='fotos/defecto.png')
@@ -48,7 +49,7 @@ class Noticias(models.Model):
     aprobada = models.BooleanField(default=False)
     comentario = models.TextField(default='--')
     def __str__(self):
-        return self.titulo
+        return self.titulo 
 
 class Contacto(models.Model):
     id_contacto = models.AutoField(primary_key=True),

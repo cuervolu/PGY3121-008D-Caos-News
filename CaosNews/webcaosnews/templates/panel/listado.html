@@ -1,0 +1,66 @@
+{% extends "panel/basePanel.html" %}
+{%load static %}
+{% block titulo %}
+Panel Administrativo - Caos News
+{% endblock titulo%}
+{% block css %}
+{% endblock css %}
+{% block contenido %}
+<script>
+  function eliminarNoticia(id) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Esta acción no se puede deshacer',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Estoy seguro',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#DC3545',
+    }).then(function(result){
+      if(result.isConfirmed){
+        window.location.href = "/eliminar-noticia/"+id+"/";
+      }
+    })
+  }
+</script>
+
+<div class="container-fluid">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Aprobado</th>
+        <th scope="col">Título</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Fecha</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for n in noticias %}
+      <tr>
+        <th scope="row">
+          {% if n.aprobada %}
+          <i class="fa-solid fa-circle-check text-primary"></i>
+          {% else %}
+          <i class="fa-solid fa-circle-xmark text-danger"></i>
+          {% endif %}
+        </th>
+        <td>{{n.titulo}}</td>
+        <td>{{n.categoria}}</td>
+        <td>{{n.fecha |date:"SHORT_DATE_FORMAT" }}</td>
+        <td>
+          <a href="{% url 'modNot' n.id %}"><button type="button" class="btn btn-primary btn-sm">Modificar</button></a>
+          <a href="#" onclick="eliminarNoticia({{n.id}})"><button type="button"
+              class="btn btn-danger btn-sm">Eliminar</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock contenido %}
