@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from .forms import *
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.http import Http404
 
 # Create your views here
 usu = ''
@@ -24,7 +26,7 @@ def cantidad_no_publicados(usuario):
 def index(request):
     noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')
     noticiasN = Noticias.objects.filter(categoria__nombre = 'Nacional' ,aprobada=True).order_by('-fecha')
-    notDeporte = Noticias.objects.get(categoria__nombre = 'Deportes' ,aprobada=True)
+    notDeporte = Noticias.objects.filter(categoria__nombre = 'Deportes' ,aprobada=True).last()
     contexto = {"noticiasN": noticiasN, "noticias": noticias, "notDeporte": notDeporte}
     return render(request, "index.html",contexto)
 
@@ -143,8 +145,15 @@ def panel(request):
 @login_required(login_url='/login/')
 def listar(request):
     noticias = Noticias.objects.filter(usuario= request.user).order_by('-fecha')
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
     data = {
-        'noticias': noticias,
+        'entity': noticias,
+        'paginator': paginator
     }
     return render(request, "panel/listado.html",data)
 
