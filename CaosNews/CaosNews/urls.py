@@ -17,10 +17,12 @@ from django.conf import settings #importar archivo de configuración
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static #importar ubicación estática al proyecto
-
+from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('webcaosnews.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('../webcaosnews/templates/registration/login.html', auth_views.LoginView.as_view()),
 ]
 
 

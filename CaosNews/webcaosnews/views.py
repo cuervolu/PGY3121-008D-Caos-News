@@ -1,5 +1,3 @@
-from itertools import count
-from operator import ge
 from django.shortcuts import redirect, render, get_object_or_404
 # incorporar el modelo de Periodista,Area,Categoría
 from .models import *
@@ -70,26 +68,43 @@ def login(request):
             messages.error(request, 'Usuario o contraseña incorrectos')
             contexto = {"msg": "Usuario o contraseña incorrecto"}
 
-    return render(request, "login.html", contexto)
+    return render(request, "registration/login.html", contexto)
 
 
-def signup(request):
-    contexto = {"msg": ""}
-    if request.POST:
-        u = request.POST.get("txtUsername")
-        n = request.POST.get("txtName")
-        a = request.POST.get("txtApellido")
-        p = request.POST.get("txtPassword")
-        e = request.POST.get("txtEmail")
-        usu = User()
-        usu.username = u
-        usu.first_name = n
-        usu.last_name = a
-        usu.email = e
-        usu.set_password(p)
-        usu.save()
-        contexto = {"msg": "Usuario creado"}
-    return render(request, "signup.html", contexto)
+def registro(request):
+    data = {
+        'form': CustomUserCreationForm()
+    }
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username=formulario.cleaned_data['username'], password=formulario.cleaned_data['password1'])
+            login_aut(request, user)
+            messages.success(
+                request, 'Te has registrado correctamente.')
+            #redirigir al home
+            return redirect('/')
+        data['form'] = formulario
+    return render(request, "registration/registro.html",data)
+
+# def registro(request):
+#     contexto = {"msg": ""}
+#     if request.POST:
+#         u = request.POST.get("txtUsername")
+#         n = request.POST.get("txtName")
+#         a = request.POST.get("txtApellido")
+#         p = request.POST.get("txtPassword")
+#         e = request.POST.get("txtEmail")
+#         usu = User()
+#         usu.username = u
+#         usu.first_name = n
+#         usu.last_name = a
+#         usu.email = e
+#         usu.set_password(p)
+#         usu.save()
+#         contexto = {"msg": "Usuario creado"}
+#     return render(request, "registration/registro.html", contexto)
 
 
 def terms(request):
