@@ -56,11 +56,11 @@
               Categorías
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="{% url 'lUT' %}">Lo Último</a></li>
               <li><a class="dropdown-item" href="{% url 'nac' %}">Nacional</a></li>
               <li><a class="dropdown-item" href="{% url 'mun' %}">Mundo</a></li>
               <li><a class="dropdown-item" href="{% url 'dep' %}">Deportes</a></li>
               <li><a class="dropdown-item" href="{% url 'pol' %}">Política</a></li>
-              <li><a class="dropdown-item" href="{% url 'lUT' %}">Lo Último</a></li>
             </ul>
           </li>
         </ul>
@@ -88,7 +88,7 @@
           </div>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link" id="iniciarSesion" href="{% url 'log' %}"><i class="icon-user"></i> Iniciar Sesión</a>
+            <a class="nav-link" id="iniciarSesion" href="{% url 'login' %}"><i class="icon-user"></i> Iniciar Sesión</a>
           </li>
           {% endif %}
           <form class="d-flex ">

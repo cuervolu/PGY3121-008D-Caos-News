@@ -53,9 +53,10 @@
 
 </div>
 
+{% endblock contenido %}
+{% block script_final %}
 <script>
     const card = document.getElementById('hCard');
     card.innerHTML = card.innerHTML.replace(/\<strong>/g, '').replace(/\<\/strong>/g, '').replace(/\<h2>/g, '').replace(/\<\/h2>/g, '');
-  </script>
-
-{% endblock contenido %}
+</script>
+{% endblock script_final %}

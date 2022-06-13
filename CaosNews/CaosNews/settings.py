@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from telnetlib import LOGOUT
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,12 +29,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/webcaosnews/templates/registration/login.html'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 # Framework de Mensajería
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'webcaosnews',
     'admin_interface',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,7 +47,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webcaosnews',
     'django.contrib.sites', # Add this
   # Add the following django-allauth apps
     'allauth',
@@ -71,7 +77,7 @@ ROOT_URLCONF = 'CaosNews.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

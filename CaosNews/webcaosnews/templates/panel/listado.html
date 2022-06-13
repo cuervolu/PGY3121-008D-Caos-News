@@ -38,7 +38,7 @@ Panel Administrativo - Caos News
       </tr>
     </thead>
     <tbody>
-      {% for n in noticias %}
+      {% for n in entity %}
       <tr>
         <th scope="row">
           {% if n.aprobada %}
@@ -60,6 +60,9 @@ Panel Administrativo - Caos News
 
     </tbody>
   </table>
+  <div>
+    {% include '../paginator.html' %}
+  </div>
 </div>
 
 

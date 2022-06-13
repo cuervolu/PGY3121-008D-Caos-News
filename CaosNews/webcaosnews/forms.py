@@ -1,4 +1,3 @@
-from cProfile import label
 from django.contrib.auth.models import User
 from tkinter import Widget
 from django import forms
@@ -8,9 +7,17 @@ from tinymce.widgets import TinyMCE
 from phonenumber_field.formfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # Si se desea todo:
 # fields = '__all__'
+
+class CustomUserCreationForm(UserCreationForm):
+   
+    class Meta:
+        model = User
+        fields = ('username', 'first_name','last_name', 'email', 'password1', 'password2')
+
 
 
 class EscribirForm(forms.ModelForm):
