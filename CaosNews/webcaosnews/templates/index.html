@@ -14,7 +14,7 @@ Caos News
 <div class="col-12 col-sm-12 col-lg-12">
   <div class="top">
     <div class="container border border-bottom-0">
-      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="height: 100%;">
+      <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel" style="height: 100%;">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
             aria-current="true" aria-label="Slide 1"></button>
@@ -24,31 +24,24 @@ Caos News
             aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="{% static 'img/accidente.jpg' %}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5 class="text-danger fs-4 fw-bold shadow-lg p-3 mb-5 bg-body rounded">Joven hallado muerto en Coronel:
-                Esto es lo que se sabe del caso y las pistas que permitieron encontrar su cuerpo</h5>
-            </div>
-          </div>
           {% for reg in noticias %}
-          <div class="carousel-item">
-            <img src="{{reg.portada.url}}" class="d-block w-100" alt="{{reg.titulo}}">
+          <div {% if forloop.first %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+            <img src="{{reg.portada.url}}" class="d-block w-100 h-50" alt="{{reg.titulo}}">
             <div class="carousel-caption d-none d-md-block">
               <h5 class="text-danger fs-4 fw-bold shadow-lg p-3 mb-5 bg-body rounded">{{reg.titulo}}</h5>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
           data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Anterior</span>
+          <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
           data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Siguiente</span>
+          <span class="visually-hidden">Next</span>
         </button>
       </div>
     </div>
@@ -96,7 +89,7 @@ Caos News
           <div class="card-body">
             <h5 class="card-title">{{notDeporte.titulo}}</h5>
             <p class="card-text"><small class="text-muted">Por {{notDeporte.autor}}</small></p>
-            <p class="card-text text-justify text-dark" >{{notDeporte.contenido |truncatechars:350 | safe|escape}}</p>
+            <p class="card-text text-justify text-dark">{{notDeporte.contenido |truncatechars:350 | safe|escape}}</p>
             <a href="{% url 'dep' %}" class="btn btn-primary stretched-link">Ver más</a>
           </div>
         </div>
@@ -107,7 +100,7 @@ Caos News
 <script>
   const card = document.getElementById('hCard');
   card.innerHTML = card.innerHTML.replace(/\<strong>/g, '').replace(/\<\/strong>/g, '').replace(/\<h2>/g, '').replace(/\<\/h2>/g, '');
-  
+
 </script>
 {% endblock contenido %}
 {% block script_final %}

@@ -20,7 +20,7 @@
     </nav>
     <h1 class="mb-5 h2 text-center fw-bolder text-danger">Lo Último en Caos News</h1>
     <section id="hCard">
-        {% for reg in noticias %}
+        {% for reg in entity %}
         <div class="row justify-content-center "
             style="padding-top: 20px; padding-bottom: 50px; margin-left: 5%; margin-right: 5%;">
             <div class="card mb-3 border-light" style="max-width: 100%;">
@@ -50,7 +50,9 @@
 
     </section>
 
-
+    <div>
+        {% include 'paginator.html' %}
+      </div>
 </div>
 
 {% endblock contenido %}

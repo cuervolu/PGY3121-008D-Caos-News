@@ -33,8 +33,18 @@ def index(request):
 
 def galeria(request):
     noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')
-    contexto = {"noticias": noticias}
-    return render(request, "galeria.html", contexto)
+    # contexto = {"noticias": noticias}
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': noticias,
+        'paginator': paginator
+    }
+    return render(request, "galeria.html", data)
 
 
 def contacto(request):
@@ -89,25 +99,6 @@ def registro(request):
             return redirect('/')
         data['form'] = formulario
     return render(request, "registration/registro.html",data)
-
-# def registro(request):
-#     contexto = {"msg": ""}
-#     if request.POST:
-#         u = request.POST.get("txtUsername")
-#         n = request.POST.get("txtName")
-#         a = request.POST.get("txtApellido")
-#         p = request.POST.get("txtPassword")
-#         e = request.POST.get("txtEmail")
-#         usu = User()
-#         usu.username = u
-#         usu.first_name = n
-#         usu.last_name = a
-#         usu.email = e
-#         usu.set_password(p)
-#         usu.save()
-#         contexto = {"msg": "Usuario creado"}
-#     return render(request, "registration/registro.html", contexto)
-
 
 def terms(request):
     return render(request, "terms.html")
