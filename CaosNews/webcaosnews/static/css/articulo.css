@@ -46,3 +46,46 @@ ul{
 .fecha{
     font-size: 12px;
 }
+
+
+/* Contenido Nota */
+.contenido-nota h1, h2, h3, h4, h5, h6 {
+    color: #DC3545 !important;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+.contenido-nota h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #DC3545 !important;
+}
+
+.contenido-nota h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #DC3545 !important;
+}
+
+.contenido-nota p {
+    font-size: 1.5rem;
+    text-align: justify;
+    color: #151F2C !important;
+    line-height: 1.6em;
+}
+
+.contenido-nota strong {
+    color: #DC3545 !important;
+    font-weight: 900;
+}
+
+.contenido-nota a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #151F2C !important;
+    border-bottom: 1px solid #151F2C;
+}
+.contenido-nota mark{
+    background-color: #DC3545, 0.5;
+    color: white;
+}

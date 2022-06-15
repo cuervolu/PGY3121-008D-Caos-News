@@ -79,7 +79,19 @@ def contacto(request):
 
 
 def deportes(request):
-    return render(request, "deportes.html")
+    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Deportes').order_by('-fecha')
+    # contexto = {"noticias": noticias}
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': noticias,
+        'paginator': paginator
+    }
+    return render(request, "deportes.html",data)
 
 
 def login(request):
@@ -120,15 +132,51 @@ def terms(request):
 
 
 def politica(request):
-    return render(request, "politica.html")
+    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Política').order_by('-fecha')
+    # contexto = {"noticias": noticias}
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': noticias,
+        'paginator': paginator
+    }
+    return render(request, "politica.html",data)
 
 
 def nacional(request):
-    return render(request, "nacional.html")
+    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Nacional').order_by('-fecha')
+    # contexto = {"noticias": noticias}
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': noticias,
+        'paginator': paginator
+    }
+    return render(request, "nacional.html", data)
 
 
 def mundo(request):
-    return render(request, "mundo.html")
+    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Mundo').order_by('-fecha')
+    # contexto = {"noticias": noticias}
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': noticias,
+        'paginator': paginator
+    }
+    return render(request, "mundo.html",data)
 
 
 def cerrar_sesion(request):

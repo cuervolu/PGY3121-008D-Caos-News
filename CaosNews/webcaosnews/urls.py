@@ -15,7 +15,7 @@ urlpatterns = [
     path('nacional/',nacional,name="nac"),
     path('mundo/',mundo,name="mun"),
     path('escribir/',escribir,name="escr"),
-    path('cerrar/',cerrar_sesion,name='cerrar'),
+    # path('cerrar/',cerrar_sesion,name='cerrar'),
     path('templates/registration/login.html', include('allauth.urls')),
     path('panel/',panel,name='panel'),
     path('lo-ultimo/',galeria,name='lUT'),

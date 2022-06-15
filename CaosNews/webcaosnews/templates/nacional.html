@@ -1,132 +1,66 @@
 {% extends "base.html" %}
+{% load i18n %}
 {%load static %}
 {% block titulo %}
- Joven hallado muerto en Coronel: Esto es lo que se sabe del caso y las pistas que permitieron encontrar su
-        cuerpo - Caos News
+Últimas noticias de Chile - Caos News
 {% endblock titulo%}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/articulo.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock css %}
 {% block contenido %}
-    <!-- Contenido -->
-    <div class="container" style="margin-top: 15px;">
-        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-            aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'indx' %}">Inicio</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Nacional</li>
-            </ol>
-        </nav>
-        <div class="bg-image" style="background-image: url(../static/img/accidente.jpg);">
-        </div>
-        <div class="container">
-            <div id="article">
-                <div class="row aligns-items-center justify-content-center">
-                    <div class="col-sm-6 col-md-8">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link active fw-bold" aria-current="page"
-                                    href="{% url 'nac' %}">Nacional</a>
-                            </li>
-                        </ul>
-                        <h1 class="mb-3 h2 text-center fw-bolder text-danger">Joven hallado muerto en Coronel: Esto es
-                            lo que se sabe del caso y las pistas que permitieron encontrar su cuerpo</h1>
-                    </div>
-                    <div class="row creditos">
-                        <div class="col d-flex justify-content-between ">
-                            <span class="periodista d-flex justify-content-start fw-bold">Por Javiera Rodríguez</span>
-                            <div class="redes-sociales">
-                                <ul class="d-flex justify-content-start">
-                                    <li><a href="" class="me-4 fs-4 text-reset icon-facebook"></a></li>
-                                    <li><a href="" class="me-4 fs-4 text-reset icon-twitter"></a></li>
-                                    <li><a href="" class="me-4 fs-4 text-reset icon-instagram"></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="fecha">
-                            <span class="fw-light">19 abr. 2022 - 15:00 hrs.</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- contenido de la nota -->
-                <div class="contenido-nota">
-                    <h2 class="my-3 h2 fw-bolder text-danger">¿Qué paso?</h2>
-                    <p class="fs-4 justify-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eaque
-                        veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius voluptatibus.
-                        Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <p class="fs-4 justify-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet eaque
-                        veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius voluptatibus.
-                        Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <br>
 
-                    <!-- Publicidad -->
-                    <div class="relacionados d-flex aligns-items-center justify-content-center">
-                        <div class="card w-75 text-white bg-danger ">
-                            <div class="card-body">
-                                <h5 class="card-title">Te puede interesar</h5>
-                                <p class="card-text"><span class="fw-bold text-dark">&raquo;</span> Una apática
-                                    Universidad Católica cayó en San Carlos ante Deportes La Serena</p>
-                                <a href="{% url 'dep' %}" class="btn btn-primary">Ver más</a>
-                            </div>
+<div class="container border border-top-0">
+    <nav class="my-3"
+        style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+        aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'indx' %}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nacional</li>
+        </ol>
+    </nav>
+    <h1 class="mb-5 h2 text-center fw-bolder text-danger">Últimas noticias de Chile</h1>
+    <section id="hCard">
+        {% for reg in entity %}
+        <div class="row justify-content-center "
+            style="padding-top: 20px; padding-bottom: 50px; margin-left: 5%; margin-right: 5%;">
+            <div class="card mb-3 border-light" style="max-width: 100%;">
+                <div class="row g-0">
+                    <div class="col-md-4 px-0">
+                        <img src="{{reg.portada.url}}" class="img-fluid rounded-start" style="height: 100%; width: 100%; object-fit: cover;" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ reg.titulo }}</h5>
+                         
+                            {% language 'es' %}
+                            <p class="card-text"><small class="text-muted">{{ reg.fecha }}</small></p>
+                            {% endlanguage %}
+                            <p class="card-text" id="card-text">{{ reg.contenido|truncatechars:320|striptags}}</p>
+                            
+                            <br>
+                            <a onclick="ir({{reg.id}})" class="btn btn-primary my-2">Leer más</a>
                         </div>
                     </div>
-                    <br>
-                    <h2 class="my-3 h2 fw-bolder text-danger">La desaparición</h2>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Eveniet eaque veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius
-                        voluptatibus. Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Eveniet eaque veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius
-                        voluptatibus. Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <br>
-                    <h2 class="my-3 h2 fw-bolder text-danger">Búsqueda</h2>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Eveniet eaque veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius
-                        voluptatibus. Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Eveniet eaque veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius
-                        voluptatibus. Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Autem, vitae! Nesciunt excepturi veniam autem, quos error ullam nam facere dolorem maxime
-                        veritatis odit, voluptatum esse libero officiis culpa atque, reprehenderit nostrum eos assumenda
-                        officia. Totam quia voluptatem iure a qui.</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Commodi iure, molestiae minus aperiam fugiat nobis distinctio autem quos labore
-                        consequatur.</p>
-                    <br>
-                    <h2 class="my-3 h2 fw-bolder text-danger">El hallazgo</h2>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Eveniet eaque veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius
-                        voluptatibus. Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Eveniet eaque veniam temporibus numquam inventore quos et? Pariatur tempora impedit eius
-                        voluptatibus. Laudantium delectus rerum cumque aliquam velit. Esse, repudiandae molestiae!</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Autem, vitae! Nesciunt excepturi veniam autem, quos error ullam nam facere dolorem maxime
-                        veritatis odit, voluptatum esse libero officiis culpa atque, reprehenderit nostrum eos assumenda
-                        officia. Totam quia voluptatem iure a qui.</p>
-                    <p class="fs-4" style="text-align: justify;">Lorem ipsum dolor sit amet consectetur adipisicing
-                        elit. Commodi iure, molestiae minus aperiam fugiat nobis distinctio autem quos labore
-                        consequatur.</p>
-                    <br>
                 </div>
-                <!-- Ver más -->
-                <div class="card">
-                    <h5 class="card-header text-center bg-dark text-white"><i class="icon-glasses text-warning"></i>
-                        Leer más de</h5>
-                    <div class="card-body text-center">
-                        <button type="button" class="btn btn-outline-primary">Nacional</button>
-                        <button type="button" class="btn btn-outline-secondary">Accidente</button>
-                        <button type="button" class="btn btn-outline-success">Conflicto</button>
-                        <button type="button" class="btn btn-outline-danger">Chile</button>
-                        <button type="button" class="btn btn-outline-warning">Trágico</button>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
-    </div>
+        <hr>
+        {% endfor %}
+
+
+    </section>
+
+    <div>
+        {% include 'paginator.html' %}
+      </div>
+</div>
+
+<script>
+    function ir(id){
+      location.href='/articulo/'+id+'/';
+    }
+  </script>
+
 {% endblock contenido %}
+{% block script_final %}
+{% endblock script_final %}

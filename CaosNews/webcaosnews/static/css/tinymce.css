@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: Fira Sans, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #DC3545 !important;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #DC3545 !important;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #DC3545 !important;
+}
+
+p {
+    font-size: 1.5rem;
+    text-align: justify;
+    color: #151F2C !important;
+    line-height: 1.6em;
+}
+
+strong {
+    color: #DC3545 !important;
+    font-weight: 900;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #151F2C !important;
+    border-bottom: 1px solid #151F2C;
+}
