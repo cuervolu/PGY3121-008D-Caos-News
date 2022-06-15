@@ -2,23 +2,25 @@
 {% load i18n %}
 {%load static %}
 {% block titulo %}
-Últimas noticias de Chile y el mundo - Caos News
+Buscador - Caos News
 {% endblock titulo%}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock css %}
 {% block contenido %}
 
+{% if buscado %}
 <div class="container border border-top-0">
     <nav class="my-3"
         style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
         aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{% url 'indx' %}">Inicio</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Lo Último</li>
+            <li class="breadcrumb-item active" aria-current="page">Buscador</li>
         </ol>
     </nav>
-    <h1 class="mb-5 h2 text-center fw-bolder text-danger">Lo Último en Caos News</h1>
+    <h5  class="mb-5 h5 text-center">Resultados de búsqueda para:</h5>
+    <h1 class="mb-5 h2 text-center fw-bolder text-danger">{{buscado}}</h1>
     <section id="hCard">
         {% for reg in entity %}
         <div class="row justify-content-center "
@@ -60,6 +62,13 @@
       location.href='/articulo/'+id+'/';
     }
   </script>
+
+{% else %}
+
+<h1 class="mb-5 h2 text-center fw-bolder text-danger">Aquí no hay nada...</h1>
+
+
+{% endif %}
 
 {% endblock contenido %}
 {% block script_final %}

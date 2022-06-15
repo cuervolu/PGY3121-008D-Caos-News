@@ -12,6 +12,7 @@ from .forms import *
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.db.models import Q
 
 # Create your views here
 usu = ''
@@ -24,12 +25,26 @@ def cantidad_no_publicados(usuario):
 
 
 def index(request):
-    noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')
+    noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')[:3]
     noticiasN = Noticias.objects.filter(categoria__nombre = 'Nacional' ,aprobada=True).order_by('-fecha')
     notDeporte = Noticias.objects.filter(categoria__nombre = 'Deportes' ,aprobada=True).last()
     contexto = {"noticiasN": noticiasN, "noticias": noticias, "notDeporte": notDeporte}
     return render(request, "index.html",contexto)
 
+
+def articulo(request,id):
+    noticia = Noticias.objects.get(id=id)
+    contexto = {"noticia":noticia}
+    return render(request, "articulo.html",contexto)
+
+def buscarArticulo(request):
+    if request.method == 'POST':
+        searched = request.POST['txtBuscar']
+        entity = Noticias.objects.filter( Q(titulo__icontains=searched) | Q(autor__icontains=searched)|Q(etiquetas__icontains=searched)) # buscar por titulo, etiquetas  y autor
+        return render(request, "buscarArticulo.html",{"buscado": searched,"entity": entity})
+    else:
+        return render(request, "buscarArticulo.html")
+    return render(request, "buscarArticulo.html")
 
 def galeria(request):
     noticias = Noticias.objects.filter(aprobada=True).order_by('-fecha')
@@ -121,7 +136,7 @@ def cerrar_sesion(request):
     return render(request, "index.html")
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def panel(request):
     usu = request.user.username  # recuperar nombre de usuario
     noticias = Noticias.objects.filter(usuario=usu, aprobada=False).order_by('-fecha')
@@ -133,7 +148,7 @@ def panel(request):
     contexto = {"noticias": noticias, "cantidad": cantidad, "cantidadNoticias": cantidadNoticias, "cantidadNoticiasAprobadas": cantidadNoticiasAprobadas, "porcentaje": porcentaje}
     return render(request, "panel/panel.html", contexto)
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def listar(request):
     noticias = Noticias.objects.filter(usuario= request.user).order_by('-fecha')
     page = request.GET.get('page',1)
@@ -148,7 +163,7 @@ def listar(request):
     }
     return render(request, "panel/listado.html",data)
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def modificarNoticia(request, id):
     Noticia = get_object_or_404(Noticias, id = id)
     data = {
@@ -168,7 +183,7 @@ def modificarNoticia(request, id):
             data['form'] = formulario
     return render(request, "panel/modificarNoticia.html",data)
 
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 def eliminarNoticia(request, id):
      Noticia = get_object_or_404(Noticias, id = id)
      Noticia.delete()
@@ -176,6 +191,7 @@ def eliminarNoticia(request, id):
          request, 'Tu artículo ha sido eliminado', extra_tags='alerta')
      return redirect(to='list')
  
+@login_required(login_url='login')
 def escribir(request):
     data = {
         'form': EscribirForm(initial={'usuario':request.user.username}),

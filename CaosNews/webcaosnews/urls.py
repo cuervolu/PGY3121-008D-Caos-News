@@ -1,3 +1,4 @@
+from unicodedata import name
 from django.contrib import admin
 from django.urls import path, include
 from .views import *
@@ -22,4 +23,6 @@ urlpatterns = [
     path('listar/',listar,name='list'),
     path('modificar-noticia/<id>/',modificarNoticia,name='modNot'),
     path('eliminar-noticia/<id>/',eliminarNoticia,name='elimNot'),
+    path('articulo/<id>/',articulo,name='ART'),
+    path('buscar-articulo',buscarArticulo,name = 'BUSCARA')
 ]

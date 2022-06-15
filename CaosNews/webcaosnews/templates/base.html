@@ -91,8 +91,9 @@
             <a class="nav-link" id="iniciarSesion" href="{% url 'login' %}"><i class="icon-user"></i> Iniciar Sesión</a>
           </li>
           {% endif %}
-          <form class="d-flex ">
-            <input class="form-control me-2" type="search" placeholder="Buscar...." aria-label="Search">
+          <form class="d-flex" action = "{% url 'BUSCARA' %}" method = "POST">
+            {% csrf_token %}
+            <input name="txtBuscar" class="form-control me-2" type="search" placeholder="Buscar...." aria-label="Search">
             <button class="btn btn-outline-primary text-light" type="submit">Buscar</button>
           </form>
         </ul>
@@ -143,6 +144,10 @@
             <h6 class="text-uppercase fw-bold mb-4">
               Secciones
             </h6>
+            <p>
+              <a href="{% url 'lUT' %}" class="text-reset">Lo Último</a>
+            </p>
+            <p>
             <p>
               <a href="{% url 'nac' %}" class="text-reset">Nacional</a>
             </p>

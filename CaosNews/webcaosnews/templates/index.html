@@ -29,9 +29,15 @@ Caos News
             <img src="{{reg.portada.url}}" class="d-block w-100 h-50" alt="{{reg.titulo}}">
             <div class="carousel-caption d-none d-md-block">
               <h5 class="text-danger fs-4 fw-bold shadow-lg p-3 mb-5 bg-body rounded">{{reg.titulo}}</h5>
+              <button class="btn btn-danger" onclick="ir({{reg.id}})">Ver Más</button>
             </div>
           </div>
           {% endfor %}
+          <script>
+            function ir(id){
+              location.href='/articulo/'+id+'/';
+            }
+          </script>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
           data-bs-slide="prev">
@@ -51,10 +57,10 @@ Caos News
 <div class="container border border-top-0 py-3">
   <div class="row justify-content-center" id="gael">
     <div class="col-sm-6 col-md-6 col-lg-4">
-      <div class="btn btn-danger" id="DolarO"></div>
+      <div class="btn btn-danger mb-2" id="DolarO"></div>
     </div>
     <div class="col-sm-6 col-md-6 col-lg-4">
-      <div class="btn btn-danger" id="UTF"></div>
+      <div class="btn btn-danger mb-2" id="UTF"></div>
     </div>
   </div>
 </div>
@@ -69,7 +75,7 @@ Caos News
         <img src="{{reg.portada.url}}" alt="" class="card-img-top">
       </div>
       <div class="card-body">
-        <a href="{% url 'nac' %}">
+        <a onclick="ir({{reg.id}})">
           <h5 class="card-title fs-6 text fw-normal text-center text-dark">{{reg.titulo}}</h5>
         </a>
       </div>
@@ -89,19 +95,14 @@ Caos News
           <div class="card-body">
             <h5 class="card-title">{{notDeporte.titulo}}</h5>
             <p class="card-text"><small class="text-muted">Por {{notDeporte.autor}}</small></p>
-            <p class="card-text text-justify text-dark">{{notDeporte.contenido |truncatechars:350 | safe|escape}}</p>
-            <a href="{% url 'dep' %}" class="btn btn-primary stretched-link">Ver más</a>
+            <p class="card-text text-justify text-dark">{{notDeporte.contenido |truncatechars:350 | striptags }}</p>
+            <a onclick="ir({{notDeporte.id}})" class="btn btn-primary stretched-link">Ver más</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<script>
-  const card = document.getElementById('hCard');
-  card.innerHTML = card.innerHTML.replace(/\<strong>/g, '').replace(/\<\/strong>/g, '').replace(/\<h2>/g, '').replace(/\<\/h2>/g, '');
-
-</script>
 {% endblock contenido %}
 {% block script_final %}
 <!-- <script>
