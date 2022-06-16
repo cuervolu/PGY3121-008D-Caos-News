@@ -1,13 +1,14 @@
 from django.contrib.auth.models import User
 from tkinter import Widget
 from django import forms
-from .models import Categoria, Noticias, Regiones, Contacto
+from .models import Categoria, Noticias, Regiones, Contacto,ImagenNoticia
 from crispy_forms.helper import FormHelper
 from tinymce.widgets import TinyMCE
 from phonenumber_field.formfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .validators import *
 
 # Si se desea todo:
 # fields = '__all__'
@@ -38,6 +39,7 @@ class EscribirForm(forms.ModelForm):
 
     portada = forms.ImageField(
         label='Imagen de Portada',
+        validators=[MaxSizeFileValidator(5)],
         widget=forms.FileInput(
             attrs={'class': 'form-control-file', 'accept': 'image/png, image/jpeg, image/jpg'}),
         error_messages={'required': 'La imagen de portada es requerida'},
@@ -69,11 +71,20 @@ class EscribirForm(forms.ModelForm):
     )
     usuario = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'True'}))
     autor = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'True'}))
+        
     class Meta:
         model = Noticias
         fields = ['titulo', 'portada', 'categoria',
                   'ubicacion', 'contenido', 'etiquetas']
     
+class ImagenForm(forms.ModelForm):
+    imagen = forms.ImageField(
+    label='Imágenes extras',
+    widget=forms.ClearableFileInput(attrs={'multiple': True, 'accept': 'image/png, image/jpeg, image/jpg'}),
+        )
+    class Meta:
+        model = ImagenNoticia
+        fields = ['imagen']
 
 
 class ContactoForm(forms.ModelForm):

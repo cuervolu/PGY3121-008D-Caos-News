@@ -79,7 +79,7 @@ def contacto(request):
 
 
 def deportes(request):
-    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Deportes').order_by('-fecha')
+    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Mundo').order_by('-fecha')
     # contexto = {"noticias": noticias}
     page = request.GET.get('page',1)
     try:
@@ -243,14 +243,19 @@ def eliminarNoticia(request, id):
 def escribir(request):
     data = {
         'form': EscribirForm(initial={'usuario':request.user.username}),
+        'imagen': ImagenForm()
     }
     if request.method == 'POST':
         formulario = EscribirForm(data=request.POST, files=request.FILES)
-        if formulario.is_valid():
+        imageForm = ImagenForm(request.POST, request.FILES)
+        if formulario.is_valid() and imageForm.is_valid():
             instance=formulario.save(commit=False)
             instance.usuario=request.user
             instance.autor=request.user.first_name + " " + request.user.last_name
             instance.save()
+            for img in request.FILES.getlist('imagenes'):
+                imagen = ImagenNoticia(imagen=img, noticia=instance)
+                imagen.save()
             # formulario.save()
             messages.success(
                 request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.', extra_tags='alerta')

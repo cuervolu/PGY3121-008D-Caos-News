@@ -51,6 +51,10 @@ class Noticias(models.Model):
     def __str__(self):
         return self.titulo 
 
+class ImagenNoticia(models.Model):
+    imagen = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=False,default='fotos/defecto.png')
+    noticia = models.ForeignKey(Noticias,on_delete=models.CASCADE,related_name='imagenes')
+
 class Contacto(models.Model):
     id_contacto = models.AutoField(primary_key=True),
     pnombre = models.CharField(max_length=50)
