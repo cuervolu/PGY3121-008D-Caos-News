@@ -43,55 +43,22 @@
                 </a>
             </div>
             <div class="menu">
-                <a href="#" class="d-block p-3 text-light"><i class="fa-solid fa-user me-2 lead"></i>Perfil</a>
+                <a href="{% url 'panel' %}" class="d-block p-3 text-light"><i class="fa-solid fa-user me-2 lead"></i>Perfil</a>
+                <a href="{% url 'indx' %}"class="d-block p-3 text-light"><i
+                        class="fa-solid fa-house me-2 lead"></i>Inicio</a>
                 <a href="{% url 'escr' %}" class="d-block p-3 text-light"><i
                         class="fa-solid fa-pen-to-square me-2 lead"></i>Escribir</a>
                 <a href="{% url 'list' %}" class="d-block p-3 text-light"><i
                         class="fa-solid fa-list-ul me-2 lead"></i>Tus Noticias</a>
                 <a href="#" class="d-block p-3 text-light"><i
-                        class="fa-solid fa-chart-simple me-2 lead"></i>Estadísticas</a>
-                <a href="#" class="d-block p-3 text-light"><i
                         class="fa-solid fa-sliders me-2 lead"></i>Configuración</a>
+                <a href="{% url 'logout' %}" class="d-block p-3 text-light"><i
+                        class="fa-solid fa-right-from-bracket me-2 lead"></i>Cerrar sesión</a>
             </div>
 
         </div>
         <!-- Sidebar -->
-        <!-- Navbar -->
-        <div class="w-100">
-            <nav class="navbar bg-rojo navbar-expand-lg navbar-light border-bottom">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <form class="d-flex position-relative d-inline-block">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                        <button class="btn btn-search position-absolute" type="submit"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav md-auto me-5 ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    {% comment %} <img src="{{user.image}}" alt="Imagen de perfil"
-                                        class="img-fluid rounded-circle avatar me-2"> {% endcomment %}
-                                    {{user.first_name}} {{user.last_name}}
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            <!-- Navbar -->
+        
             <!-- Contenido -->
             {% for m in messages %}
             {% if m.extra_tags == 'fallo' %}
@@ -126,7 +93,6 @@
                 integrity="sha256-cHVO4dqZfamRhWD7s4iXyaXWVK10odD+qp4xidFzqTI=" crossorigin="anonymous"></script>
            
             {% block script_final %}
-            <script src="{% static 'js/script.js' %}"></script>
             {% endblock script_final %}
 </body>
 

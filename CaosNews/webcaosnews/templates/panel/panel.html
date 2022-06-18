@@ -10,11 +10,10 @@ Panel Administrativo - Caos News
 {% endblock css %}
 {% block contenido %}
 <!-- Contenido -->
-<div id="content">
+<div id="content" class="container-fluid">
     <section class="py-3">
-        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-9 ps-5">
+                <div class="col-lg-8 ps-5">
                     <h1 class="fw-bold mb-0">Bienvenido, {{user.first_name}} </h1>
                     <p class="lead text-muted">Revisa la última información</p>
                 </div>
@@ -22,14 +21,12 @@ Panel Administrativo - Caos News
                     <button class="btn btn-danger w-100 align-self-center">Descargar reporte</button>
                 </div>
             </div>
-        </div>
     </section>
-    <section class="bg-mix">
-        <div class="container">
+    <section class="bg-mix ">
             <div class="card rounded-0">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                        <div class="col-lg-2 col-md-6 d-flex stat my-3">
                             <div class="mx-auto">
                                 <h6 class="text-muted">Visitas mensuales</h6>
                                 <h3 class="fw-bold">100</h3>
@@ -64,12 +61,10 @@ Panel Administrativo - Caos News
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     <section class="bg-gris">
-        <div class="container">
             <div class="row">
-                <div class="col-lg-8 my-3">
+                <div class="col-lg-8 col-md-4 my-3">
                     <div class="card rounded-0">
                         <div class="card-header bg-light">
                             <h6 class="fw-bold mb-0">Gráfica de visitas a sus artículos</h6>
@@ -79,7 +74,7 @@ Panel Administrativo - Caos News
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 my-3">
+                <div class="col-lg-4 col-md-4 my-3">
                     <div class="card rounded-0">
                         <div class="card-header bg-light">
                             <h6 class="fw-bold mb-0">Notificaciones</h6>
@@ -137,7 +132,7 @@ Panel Administrativo - Caos News
                     </div>
                 </div>
             </div>
-        </div>
+
 
         <!-- Artículos -->
         <div class="articulos">
@@ -153,6 +148,8 @@ Panel Administrativo - Caos News
                             <h5 class="card-text fs-6 text fw-normal text-center">{{reg.titulo}}</h5>
                         </div>
                     </div>
+                    {% empty %}
+                        <h5 class="card-text fs-6 text fw-normal text-center">No tienes artículos no publicados</h5>
                     {% endfor %}
                     <div></div>
                 </div>

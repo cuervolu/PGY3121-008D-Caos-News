@@ -37,10 +37,7 @@ Formulario de Publicación de Noticias - Caos News
                     {{ form.portada | as_crispy_field}}
                 </div>
                 <div class="mb-3 my-4">
-                    {{ imageForm.management_form}}
-                    {% for form in imagen %}
-                        {{ form | as_crispy_field  }}
-                    {% endfor %}
+                   {{imageForm.imagen| as_crispy_field}}
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12">

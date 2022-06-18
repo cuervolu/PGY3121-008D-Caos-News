@@ -52,7 +52,7 @@ class Noticias(models.Model):
         return self.titulo 
 
 class ImagenNoticia(models.Model):
-    imagen = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=False,default='fotos/defecto.png')
+    imagen = models.ImageField(upload_to='fotos/%Y/%m/%d/',null=True,default='fotos/defecto.png')
     noticia = models.ForeignKey(Noticias,on_delete=models.CASCADE,related_name='imagenes')
 
 class Contacto(models.Model):

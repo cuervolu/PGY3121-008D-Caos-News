@@ -79,7 +79,7 @@ def contacto(request):
 
 
 def deportes(request):
-    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Mundo').order_by('-fecha')
+    noticias = Noticias.objects.filter(aprobada=True,categoria__nombre = 'Deportes').order_by('-fecha')
     # contexto = {"noticias": noticias}
     page = request.GET.get('page',1)
     try:
@@ -185,6 +185,7 @@ def cerrar_sesion(request):
 
 
 @login_required(login_url='login')
+@permission_required('webcaosnews.view_noticias',login_url='login')
 def panel(request):
     usu = request.user.username  # recuperar nombre de usuario
     noticias = Noticias.objects.filter(usuario=usu, aprobada=False).order_by('-fecha')
@@ -197,6 +198,9 @@ def panel(request):
     return render(request, "panel/panel.html", contexto)
 
 @login_required(login_url='login')
+@permission_required('webcaosnews.change_noticias',login_url='login')
+@permission_required('webcaosnews.delete_noticias',login_url='login')
+@permission_required('webcaosnews.view_noticias',login_url='login')
 def listar(request):
     noticias = Noticias.objects.filter(usuario= request.user).order_by('-fecha')
     page = request.GET.get('page',1)
@@ -212,6 +216,9 @@ def listar(request):
     return render(request, "panel/listado.html",data)
 
 @login_required(login_url='login')
+@permission_required('webcaosnews.change_noticias',login_url='login')
+@permission_required('webcaosnews.delete_noticias',login_url='login')
+@permission_required('webcaosnews.view_noticias',login_url='login')
 def modificarNoticia(request, id):
     Noticia = get_object_or_404(Noticias, id = id)
     data = {
@@ -232,6 +239,9 @@ def modificarNoticia(request, id):
     return render(request, "panel/modificarNoticia.html",data)
 
 @login_required(login_url='login')
+@permission_required('webcaosnews.change_noticias',login_url='login')
+@permission_required('webcaosnews.delete_noticias',login_url='login')
+@permission_required('webcaosnews.view_noticias',login_url='login')
 def eliminarNoticia(request, id):
      Noticia = get_object_or_404(Noticias, id = id)
      Noticia.delete()
@@ -240,23 +250,18 @@ def eliminarNoticia(request, id):
      return redirect(to='list')
  
 @login_required(login_url='login')
+@permission_required('webcaosnews.add_noticias',login_url='login')
 def escribir(request):
     data = {
         'form': EscribirForm(initial={'usuario':request.user.username}),
-        'imagen': ImagenForm()
     }
     if request.method == 'POST':
         formulario = EscribirForm(data=request.POST, files=request.FILES)
-        imageForm = ImagenForm(request.POST, request.FILES)
-        if formulario.is_valid() and imageForm.is_valid():
+        if formulario.is_valid():
             instance=formulario.save(commit=False)
             instance.usuario=request.user
             instance.autor=request.user.first_name + " " + request.user.last_name
             instance.save()
-            for img in request.FILES.getlist('imagenes'):
-                imagen = ImagenNoticia(imagen=img, noticia=instance)
-                imagen.save()
-            # formulario.save()
             messages.success(
                 request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.', extra_tags='alerta')
         else:
@@ -264,6 +269,7 @@ def escribir(request):
             print(formulario.errors)
             messages.error(
                 request, 'Ha habido un error.', extra_tags='fallo')
-            data['form'] = formulario
+            data={'form': formulario}
+            
 
     return render(request, "escribir.html", data)
