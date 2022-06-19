@@ -36,9 +36,6 @@ Formulario de Publicación de Noticias - Caos News
                 <div class="mb-3 my-4">
                     {{ form.portada | as_crispy_field}}
                 </div>
-                <div class="mb-3 my-4">
-                   {{imageForm.imagen| as_crispy_field}}
-                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
                         {{ form.categoria | as_crispy_field}}
@@ -52,9 +49,7 @@ Formulario de Publicación de Noticias - Caos News
                 </div>
                 <div class="mb-3 pt-2">
                     {{ form.etiquetas | as_crispy_field}}
-
                 </div>
-            </div>
         </div>
         <div class="row justify-content-end">
             <div class="col-sm-6 col-md-5 col-lg-1 pb-3">

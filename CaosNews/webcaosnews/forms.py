@@ -76,16 +76,7 @@ class EscribirForm(forms.ModelForm):
         model = Noticias
         fields = ['titulo', 'portada', 'categoria',
                   'ubicacion', 'contenido', 'etiquetas']
-    
-# class ImagenForm(forms.ModelForm):
-#     imagen = forms.ImageField(
-#     label='Imágenes extras',
-#     widget=forms.ClearableFileInput(attrs={'class': 'form-control-file','multiple': True, 'accept': 'image/png, image/jpeg, image/jpg'}),
-#     required=False,
-#         )
-#     class Meta:
-#         model = ImagenNoticia
-#         fields = ['imagen']
+
 
 
 class ContactoForm(forms.ModelForm):

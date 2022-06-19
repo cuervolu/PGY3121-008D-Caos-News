@@ -5,8 +5,8 @@
 {{noticia.titulo}} - Caos News
 {% endblock titulo%}
 {% block css %}
-
 <link rel="stylesheet" href="{% static 'css/articulo.css' %}">
+<link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
 {% endblock css %}
 {% block contenido %}
 <!-- Contenido -->
@@ -33,8 +33,9 @@
                 </div>
                 <div class="row creditos">
                     <div class="col d-flex justify-content-between ">
-                        <span class="periodista d-flex justify-content-start fw-bold">Por {{noticia.autor}} | {{noticia.ubicacion}}</span>
-                       
+                        <span class="periodista d-flex justify-content-start fw-bold">Por {{noticia.autor}} |
+                            {{noticia.ubicacion}}</span>
+
                         <div class="redes-sociales">
                             <ul class="d-flex justify-content-start">
                                 <li><a href="" class="me-4 fs-4 text-reset icon-facebook"></a></li>
@@ -54,6 +55,14 @@
             <div class="contenido-nota">
                 {{noticia.contenido | safe}}
             </div>
+            <!-- Imágenes extra -->
+            <div class="mb-3 text-center">
+                {% if noticia.imagenes %}
+                    {% for img in noticia.imagenes.all %}
+                    <a href="{{ img.imagen.url }}" data-lightbox="roadtrip" data-title="{{noticia.titulo}}"><img src="{{ img.imagen.url }}" alt="" class="w-25 rounded mb-4 shadow-lg"></a>
+                    {% endfor %}
+                {% endif %}
+            </div>
             <!-- Ver más -->
             <div class="card">
                 <h5 class="card-header text-center bg-dark text-white"><i class="icon-glasses text-warning"></i>
@@ -71,4 +80,8 @@
     </div>
 </div>
 </div>
+<script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
 {% endblock contenido %}
+{% block script_final %}
+
+{% endblock script_final %}
