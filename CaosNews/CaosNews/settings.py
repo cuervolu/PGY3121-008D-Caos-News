@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from telnetlib import LOGOUT
-import os 
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,12 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites', # Add this
-  # Add the following django-allauth apps
+    'django.contrib.sites',  # Add this
+    # Add the following django-allauth apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google', # for Google OAuth 2.0 
+    'allauth.socialaccount.providers.google',  # for Google OAuth 2.0
     'phonenumber_field',
     'tinymce',
     'crispy_forms',
@@ -87,9 +88,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
             'libraries':{
-               # make your file entry here.
-               'filter_tags': 'webcaosnews.templatetags.filter',
-               }
+                # make your file entry here.
+                'filter_tags': 'webcaosnews.templatetags.filter',
+            }
         },
     },
 ]
@@ -102,8 +103,12 @@ WSGI_APPLICATION = 'CaosNews.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'xe',
+        'USER': 'CAOSNEWS',
+        'PASSWORD': 'CAOSNEWS',
+        'HOST': 'localhost',
+        'PORT': '1521',
     }
 }
 
@@ -144,9 +149,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-import os
-MEDIA_URL = '/media/' #nombre directorio multimedia
-MEDIA_ROOT = os.path.join(BASE_DIR,'media') #ubicación de multimedia
+MEDIA_URL = '/media/'  # nombre directorio multimedia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # ubicación de multimedia
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -163,7 +167,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # Additional configuration settings
 SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
@@ -184,25 +188,28 @@ TINYMCE_DEFAULT_CONFIG = {
     'menubar': 'file edit view insert format tools table help',
     'toolbar': 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | template link anchor codesample | ltr rtl | code',
     'autosave_ask_before_unload': 'true',
-   ' autosave_interval': '30s',
-   ' autosave_prefix': '{path}{query}-{id}-',
+    ' autosave_interval': '30s',
+    ' autosave_prefix': '{path}{query}-{id}-',
     'autosave_restore_when_empty': 'false',
     'autosave_retention': '2m',
     'entity_encoding': 'text',
     'height': 500,
-   'style_formats': [
-        {'title': 'Custom format', 'format': 'customformat' },
-        {'title': 'Align left', 'format': 'alignleft' },
-        {'title': 'Align center', 'format': 'aligncenter' },
-        {'title': 'Align right', 'format': 'alignright' },
-        {'title': 'Align full', 'format': 'alignfull' },
-        {'title': 'Bold text', 'inline': 'strong' },
-        {'title': 'Red text', 'inline': 'span', 'styles': { 'color': '#ff0000' } },
-        {'title': 'Red header', 'block': 'h1', 'styles': { 'color': '#ff0000' } },
-        {'title': 'Badge', 'inline': 'span', 'styles': { 'display': 'inline-block', 'border': '1px solid #2276d2', 'border-radius': '5px', 'padding': '2px 5px', 'margin': '0 2px', 'color': '#2276d2' } },
-        {'title': 'Table row 1', 'selector': 'tr', 'classes': 'tablerow1' },
-        {'title': 'Image formats' },
-        {'title': 'Image Left', 'selector': 'img', 'styles': { 'float': 'left', 'margin': '0 10px 0 10px' } },
-        {'title': 'Image Right', 'selector': 'img', 'styles': { 'float': 'right', 'margin': '0 0 10px 10px' } },
-      ],
-    }
+    'style_formats': [
+        {'title': 'Custom format', 'format': 'customformat'},
+        {'title': 'Align left', 'format': 'alignleft'},
+        {'title': 'Align center', 'format': 'aligncenter'},
+        {'title': 'Align right', 'format': 'alignright'},
+        {'title': 'Align full', 'format': 'alignfull'},
+        {'title': 'Bold text', 'inline': 'strong'},
+        {'title': 'Red text', 'inline': 'span', 'styles': {'color': '#ff0000'}},
+        {'title': 'Red header', 'block': 'h1', 'styles': {'color': '#ff0000'}},
+        {'title': 'Badge', 'inline': 'span', 'styles': {'display': 'inline-block', 'border': '1px solid #2276d2',
+                                                        'border-radius': '5px', 'padding': '2px 5px', 'margin': '0 2px', 'color': '#2276d2'}},
+        {'title': 'Table row 1', 'selector': 'tr', 'classes': 'tablerow1'},
+        {'title': 'Image formats'},
+        {'title': 'Image Left', 'selector': 'img', 'styles': {
+            'float': 'left', 'margin': '0 10px 0 10px'}},
+        {'title': 'Image Right', 'selector': 'img', 'styles': {
+            'float': 'right', 'margin': '0 0 10px 10px'}},
+    ],
+}

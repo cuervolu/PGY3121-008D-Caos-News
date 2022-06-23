@@ -6,3 +6,4 @@ django-phonenumber_field
 django-allauth
 django-admin-interface
 django-phonenumbers
+cx_oracle
