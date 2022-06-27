@@ -58,7 +58,10 @@ INSTALLED_APPS = [
     'tinymce',
     'crispy_forms',
     'colorfield',
+    'ApiNoticias',
+    'rest_framework',
 ]
+
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -13,19 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf import settings #importar archivo de configuración
-from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.static import static #importar ubicación estática al proyecto
-from django.contrib.auth import views as auth_views
+from django.urls import re_path as url
+from rest_framework.urlpatterns import format_suffix_patterns
+from .views import *
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('webcaosnews.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('../webcaosnews/templates/registration/login.html', auth_views.LoginView.as_view()),
-    path('',include('ApiNoticias.urls')),
+    url(r'^api/noticias/$',NoticiasViewSet.as_view()),
+    url(r'^api/buscar_noticia/(?P<categoria>.+)/$',NoticiasBuscarViewSet.as_view())
 ]
 
-
-if settings.DEBUG:
-    urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns=format_suffix_patterns(urlpatterns)

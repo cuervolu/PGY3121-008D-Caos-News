@@ -13,6 +13,9 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.db.models import Q
+#importar libreria de conexión HTTP
+import requests
+from rest_framework import viewsets
 
 # Create your views here
 usu = ''
@@ -184,6 +187,7 @@ def cerrar_sesion(request):
     return render(request, "index.html")
 
 
+
 @login_required(login_url='login')
 @permission_required('webcaosnews.view_noticias',login_url='login')
 def panel(request):
@@ -273,3 +277,19 @@ def escribir(request):
             
 
     return render(request, "escribir.html", data)
+
+
+def galeria_api(request):
+    noticias = requests.get("http://127.0.0.1:8000/api/noticias/").json()
+    # contexto = {"noticias": noticias}
+    page = request.GET.get('page',1)
+    try:
+        paginator = Paginator(noticias,5)
+        noticias = paginator.page(page)
+    except:
+        raise Http404
+    data = {
+        'entity': noticias,
+        'paginator': paginator
+    }
+    return render(request, "galeria_api.html", data)

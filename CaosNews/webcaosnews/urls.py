@@ -24,5 +24,6 @@ urlpatterns = [
     path('modificar-noticia/<id>/',modificarNoticia,name='modNot'),
     path('eliminar-noticia/<id>/',eliminarNoticia,name='elimNot'),
     path('articulo/<id>/',articulo,name='ART'),
-    path('buscar-articulo',buscarArticulo,name = 'BUSCARA')
+    path('buscar-articulo',buscarArticulo,name = 'BUSCARA'),
+    path('galeria_api',galeria_api,name='GALEAPI')
 ]
