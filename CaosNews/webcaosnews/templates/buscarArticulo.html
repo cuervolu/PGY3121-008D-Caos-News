@@ -37,7 +37,7 @@ Buscador - Caos News
                             {% language 'es' %}
                             <p class="card-text"><small class="text-muted">{{ reg.fecha }}</small></p>
                             {% endlanguage %}
-                            <p class="card-text" id="card-text">{{ reg.contenido|truncatechars:320|striptags}}</p>
+                            <p class="card-text" id="card-text">{{ reg.contenido|striptags|truncatechars:320}}</p>
                             
                             <br>
                             <a onclick="ir({{reg.id}})" class="btn btn-primary my-2">Leer más</a>
