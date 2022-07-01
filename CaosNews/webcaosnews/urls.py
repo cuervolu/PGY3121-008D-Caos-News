@@ -27,3 +27,4 @@ urlpatterns = [
     path('buscar-articulo',buscarArticulo,name = 'BUSCARA'),
     path('galeria_api',galeria_api,name='GALEAPI')
 ]
+

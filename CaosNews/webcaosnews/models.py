@@ -74,3 +74,4 @@ class Galeria(models.Model):
 
     def __str__(self):
         return 'Número: '+str(self.auto_inc)
+    
