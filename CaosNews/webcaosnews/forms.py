@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from tkinter import Widget
 from django import forms
 from .models import Categoria, Noticias, Regiones, Contacto,ImagenNoticia
 from crispy_forms.helper import FormHelper
@@ -69,8 +68,14 @@ class EscribirForm(forms.ModelForm):
         error_messages={'required': 'El contenido es requerido',
                         'min_length': 'El contenido debe tener al menos 10 caracteres'},
     )
-    usuario = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'True'}))
-    autor = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'True'}))
+    
+    ImagenNoticia = forms.ImageField(
+        label= 'Imágenes extra',
+        widget=forms.ClearableFileInput(attrs={'multiple': True})
+        )
+    
+    usuario = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'False'}))
+    autor = forms.CharField(required=False , widget=forms.TextInput(attrs={'readonly':'False'}))
         
     class Meta:
         model = Noticias
