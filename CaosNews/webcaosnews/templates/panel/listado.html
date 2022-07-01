@@ -54,8 +54,6 @@ Panel Administrativo - Caos News
           <a href="{% url 'modNot' n.id %}"><button type="button" class="btn btn-primary btn-sm mb-2">Modificar</button></a>
           <a href="#" onclick="eliminarNoticia({{n.id}})"><button type="button"
               class="btn btn-danger btn-sm mb-2">Eliminar</button></a>
-          <a href="#" onclick="galeria({{n.id}})"><button type="button"
-              class="btn btn-warning btn-sm mb-2">Añadir imagen</button></a>
         </td>
       </tr>
       {% endfor %}

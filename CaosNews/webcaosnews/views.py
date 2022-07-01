@@ -261,11 +261,18 @@ def escribir(request):
     }
     if request.method == 'POST':
         formulario = EscribirForm(data=request.POST, files=request.FILES)
+        imagenNoticia = formulario.files.getlist('ImagenNoticia')
         if formulario.is_valid():
             instance=formulario.save(commit=False)
             instance.usuario=request.user
             instance.autor=request.user.first_name + " " + request.user.last_name
             instance.save()
+            for i in imagenNoticia:
+                img = ImagenNoticia(imagen = i,noticia = instance)
+                img.save()
+                # instance.imagenes.add(img)
+            # instance.save()
+            print(f'Imagenes: {imagenNoticia}')
             messages.success(
                 request, 'Tu artículo sera revisado por nuestros administradores. Te avisaremos cuando llegue el resultado.', extra_tags='alerta')
         else:

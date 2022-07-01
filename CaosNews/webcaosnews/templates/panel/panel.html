@@ -12,126 +12,134 @@ Panel Administrativo - Caos News
 <!-- Contenido -->
 <div id="content" class="container-fluid">
     <section class="py-3">
-            <div class="row">
-                <div class="col-lg-8 ps-5">
-                    <h1 class="fw-bold mb-0">Bienvenido, {{user.first_name}} </h1>
-                    <p class="lead text-muted">Revisa la última información</p>
-                </div>
-                <div class="col-lg-2 d-flex">
-                    <button class="btn btn-danger w-100 align-self-center">Descargar reporte</button>
-                </div>
+        <div class="row">
+            <div class="col-lg-8 ps-5">
+                <h1 class="fw-bold mb-0">Bienvenido, {{user.first_name}} </h1>
+                <p class="lead text-muted">Revisa la última información</p>
             </div>
+            <div class="col-lg-2 d-flex">
+                <button class="btn btn-danger w-100 align-self-center">Descargar reporte</button>
+            </div>
+        </div>
     </section>
     <section class="bg-mix ">
-            <div class="card rounded-0">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-2 col-md-6 d-flex stat my-3">
-                            <div class="mx-auto">
-                                <h6 class="text-muted">Visitas mensuales</h6>
-                                <h3 class="fw-bold">100</h3>
-                                <h6 class="text-success fw-light"><i
-                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>50%</h6>
-                            </div>
+        <div class="card rounded-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2 col-md-6 d-flex stat my-3">
+                        <div class="mx-auto">
+                            <h6 class="text-muted">Visitas mensuales</h6>
+                            <h3 class="fw-bold">100</h3>
+                            <h6 class="text-success fw-light"><i
+                                    class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>50%</h6>
                         </div>
-                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                            <div class="mx-auto">
-                                <h6 class="text-muted">Artículos escritos</h6>
-                                <h3 class="fw-bold">{{cantidadNoticias}}</h3>
-                                {% comment %} <h6 class="text-success fw-light"><i
-                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>30%</h6> {% endcomment %}
-                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                        <div class="mx-auto">
+                            <h6 class="text-muted">Artículos escritos</h6>
+                            <h3 class="fw-bold">{{cantidadNoticias}}</h3>
+                            {% comment %} <h6 class="text-success fw-light"><i
+                                    class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>30%</h6> {% endcomment %}
                         </div>
-                        <div class="col-lg-3 col-md-6 d-flex stat my-3">
-                            <div class="mx-auto">
-                                <h6 class="text-muted">Artículos aprobados</h6>
-                                <h3 class="fw-bold">{{cantidadNoticiasAprobadas}}</h3>
-                                <h6 class="text-success fw-light"><i
-                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>{{porcentaje}}%</h6>
-                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 d-flex stat my-3">
+                        <div class="mx-auto">
+                            <h6 class="text-muted">Artículos aprobados</h6>
+                            <h3 class="fw-bold">{{cantidadNoticiasAprobadas}}</h3>
+                            <h6 class="text-success fw-light"><i
+                                    class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>{{porcentaje}}%</h6>
                         </div>
-                        <div class="col-lg-3 col-md-6 d-flex my-3">
-                            <div class="mx-auto">
-                                <h6 class="text-muted">Artículos Destacados</h6>
-                                <h3 class="fw-bold">458</h3>
-                                <h6 class="text-success fw-light"><i
-                                        class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>10%</h6>
-                            </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 d-flex my-3">
+                        <div class="mx-auto">
+                            <h6 class="text-muted">Artículos Destacados</h6>
+                            <h3 class="fw-bold">458</h3>
+                            <h6 class="text-success fw-light"><i
+                                    class="fa-solid fa-circle-chevron-up fa-sm me-2"></i>10%</h6>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <section class="bg-gris">
-            <div class="row">
-                <div class="col-lg-8 col-md-4 my-3">
-                    <div class="card rounded-0">
-                        <div class="card-header bg-light">
-                            <h6 class="fw-bold mb-0">Gráfica de visitas a sus artículos</h6>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myChart"></canvas>
-                        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-4 my-3">
+                <div class="card rounded-0">
+                    <div class="card-header bg-light">
+                        <h6 class="fw-bold mb-0">Gráfica de visitas a sus artículos</h6>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-4 my-3">
-                    <div class="card rounded-0">
-                        <div class="card-header bg-light">
-                            <h6 class="fw-bold mb-0">Notificaciones</h6>
-                        </div>
-                        <div class="card-body pt-2">
-                            <div class="d-flex border-bottom py-2">
-                                <div class="me-3 d-flex">
-                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-square-envelope"></i></h2>
-                                </div>
-                                <div class="align-self-center">
-                                    <h6 class="d-inline-block mb-0">Nuevo Mensaje</h6><span
-                                        class="badge bg-danger ms-2">Importante</span>
-                                    <small class="d-block text-muted">De Federico Sutil</small>
-                                </div>
-                            </div>
-                            <div class="d-flex border-bottom py-2">
-                                <div class="me-3 d-flex">
-                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-thumbs-up"></i>
-                                    </h2>
-                                </div>
-                                <div class="align-self-center">
-                                    <h6 class="d-inline-block mb-0">Artículo Aprobado</h6><span
-                                        class="badge bg-primary ms-2">¡Bien hecho!</span>
-                                    <small class="d-block text-muted">Tu artículo fue aprobado</small>
-                                </div>
-                            </div>
-                            <div class="d-flex border-bottom py-2">
-                                <div class="me-3 d-flex">
-                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-thumbs-down"></i>
-                                    </h2>
-                                </div>
-                                <div class="align-self-center">
-                                    <h6 class="d-inline-block mb-0">Artículo Desaprobado</h6><span
-                                        class="badge bg-danger ms-2">Importante</span>
-                                    <small class="d-block text-muted">Tu artículo no logró ser
-                                        aprobado</small>
-                                </div>
-                            </div>
-                            <div class="d-flex border-bottom py-2 mb-3">
-                                <div class="me-3 d-flex">
-                                    <h2 class="mb-0 align-self-center"><i class="fa-solid fa-square-pen"></i>
-                                    </h2>
-                                </div>
-                                <div class="align-self-center">
-                                    <h6 class="d-inline-block mb-0">Corrección Necesaria</h6><span
-                                        class="badge bg-warning ms-2">Importante</span>
-                                    <small class="d-block text-muted">Se necesitan mejoras en tu
-                                        artículo</small>
-                                </div>
-                            </div>
-                            <button class="btn btn-danger w-100">
-                                Ver todas las notificaciones
-                            </button>
-                        </div>
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
             </div>
+            {% for group in user.groups.all %}
+            {% if group.name == 'Periodista' %}
+            <div class="col-lg-4 col-md-4 my-3">
+                <div class="card rounded-0">
+                    <div class="card-header bg-light">
+                        <h6 class="fw-bold mb-0">Publicaciones no aprobadas</h6>
+                    </div>
+                    <div class="card-body pt-2">
+                        <div class="border-bottom py-2">
+                            {% if cantidad > 0 %}
+                            <ul class="list-group pb-2 list-group-flush">
+                                {% for reg in noticias %}
+                                <li class="list-group-item">{{ forloop.counter }}. {{reg.titulo}}</li>
+                                {% endfor %}
+                            </ul>
+                            <button class="btn btn-danger w-100" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                                Ver todos los comentarios
+                            </button>
+                            <!-- Offcanvas -->
+                            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1"
+                                id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Comentarios</h5>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <p>
+                                    <div class="btn-group-vertical " role="group" aria-label="Basic example">
+                                        {% for reg in noticias %}
+                                        <a data-bs-toggle="collapse"
+                                            data-bs-target="#multiCollapseExample{{ forloop.counter }}"
+                                            aria-expanded="false"
+                                            aria-controls="multiCollapseExample{{ forloop.counter }}">
+                                            <button type="button" class="btn btn-warning mb-2" type="button"
+                                                data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true"
+                                                title=" <u>Publicación hecha el:</u> <b>{{reg.fecha |date:"SHORT_DATE_FORMAT"}}</b>">{{reg.titulo}}</button>
+                                        </a>
+                                        </p>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="collapse multi-collapse"
+                                                    id="multiCollapseExample{{ forloop.counter }}">
+                                                    <div class="card card-body mb-2 my-0">
+                                                        {{reg.comentario}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- OffCanvas -->
+
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
 
 
         <!-- Artículos -->
@@ -149,24 +157,24 @@ Panel Administrativo - Caos News
                         </div>
                     </div>
                     {% empty %}
-                        <h5 class="card-text fs-6 text fw-normal text-center">No tienes artículos no publicados</h5>
+                    <h5 class="card-text fs-6 text fw-normal text-center">No tienes artículos no publicados</h5>
                     {% endfor %}
                     <div></div>
                 </div>
             </div>
-    
+
         </div>
 
     </section>
 
-    
+
 
 </div>
 
 <script>
     $(document).ready(function () {
         $(".owl-carousel").owlCarousel({
-            merge:true,
+            merge: true,
             loop: true,
             margin: 1,
             nav: false,
@@ -233,6 +241,13 @@ Panel Administrativo - Caos News
         document.getElementById('myChart'),
         config
     );
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (element) {
+            return new bootstrap.Tooltip(element);
+        });
+    });
 </script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 {% endblock script_final %}
