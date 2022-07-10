@@ -5,4 +5,4 @@ from webcaosnews.models import Noticias
 class NoticiaSerializers(serializers.ModelSerializer):
     class Meta:
         model = Noticias
-        fields = ["titulo","autor","categoria","portada","ubicacion"]
+        fields = ["titulo","autor","fecha","categoria","portada","ubicacion"]

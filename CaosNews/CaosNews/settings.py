@@ -166,7 +166,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/panel'
 
 # Additional configuration settings
 SOCIALACCOUNT_QUERY_EMAIL = True

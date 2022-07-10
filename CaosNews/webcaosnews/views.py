@@ -16,7 +16,8 @@ from django.db.models import Q
 #importar libreria de conexión HTTP
 import requests
 from rest_framework import viewsets
-
+#JsonResponse
+from django.http import JsonResponse
 # Create your views here
 usu = ''
 cantidad = 0
